@@ -14,8 +14,13 @@ import style from './styles/signupForm.module.css'
 
 export const SignupForm = (props: { type: string }) => {
 
+    //const navigate = useNavigate()
+
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
-    const onSubmit = (data: FormValues ) => console.log(data)
+
+    const onSubmit = (data: FormValues ) => {
+        console.log(data)
+    }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
@@ -35,7 +40,21 @@ export const SignupForm = (props: { type: string }) => {
                     })} 
                 />
                 {errors.email && (
-                    <p>{errors.email.message}</p>
+                    <p className={style.error}>{errors.email.message}</p>
+                )}
+            </div>
+            <div className={style.formInputDiv}>
+                <input 
+                    className={style.input}
+                    type="text" 
+                    placeholder="Username" 
+                    id="username-signup"
+                    {...register('email', {
+                        required: 'Username field is required.',
+                    })} 
+                />
+                {errors.email && (
+                    <p className={style.error}>{errors.email.message}</p>
                 )}
             </div>
             <div className={style.formInputDiv}>
@@ -49,7 +68,7 @@ export const SignupForm = (props: { type: string }) => {
                     })} 
                 />
                 {errors.password && (
-                    <p>{errors.password.message}</p>
+                    <p className={style.error}>{errors.password.message}</p>
                 )}
             </div>
             <div className={style.formSubmit}>

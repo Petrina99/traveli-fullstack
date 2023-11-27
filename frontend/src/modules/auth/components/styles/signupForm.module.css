@@ -63,3 +63,8 @@
 .submitBtn:hover {
     background-color: #ddff00;
 }
+
+.error {
+    margin-top: 5px;
+    color: rgba(255, 0, 0, 0.8);
+}
