@@ -1,0 +1,34 @@
+.link {
+    text-decoration: none;
+    color: #C5E117;
+    font-family: 'Pacifico', cursive;
+    width: 100%;
+    text-align: left;
+    font-size: 9vmin;
+    margin-left: 20px;
+}
+
+.form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.linkLogin {
+    text-align: center;
+}
+
+.linkLogin span {
+    color: white;
+}
+
+.linkLogin a {
+    text-decoration: none;
+    color: #C5E117;
+    padding-left: 10px;
+}
+
+.linkLogin a:hover {
+    color: orange;
+}
