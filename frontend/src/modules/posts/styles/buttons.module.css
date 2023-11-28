@@ -1,0 +1,74 @@
+.nav {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #323131;
+    border-radius: 10px;
+    margin-top: 25px;
+}
+
+.buttonGroup {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0.5em;
+}
+
+.button {
+    padding: 0.5em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    border-radius: 5px;
+    background-color: #323131;
+    color: white;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.button:focus {
+    background-color: #444444;
+    -webkit-transition: background-color 200ms ease-in;
+    -ms-transition: background-color 200ms ease-in;
+    transition: background-color 200ms ease-in;
+}
+
+.button:hover {
+    background-color: #444444;
+    -webkit-transition: background-color 200ms ease-in;
+    -ms-transition: background-color 200ms ease-in;
+    transition: background-color 200ms ease-in;
+}
+
+.button p {
+    font-size: 16px;
+}
+
+.button img {
+    margin-left: 5px;
+}
+
+@media (max-width: 770px) {
+    .nav {
+        width: 80%;
+    }
+
+    .button p {
+        font-size: 2vmax;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .nav {
+        width: 90%;
+    }
+
+    .buttonGroup {
+        justify-content: center;
+    }
+}

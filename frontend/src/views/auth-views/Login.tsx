@@ -1,4 +1,4 @@
-import { SignupForm } from "../../modules"
+import { SignupForm } from "@/modules"
 import { Link } from "react-router-dom"
 
 import style from '../styles/signup.module.css'

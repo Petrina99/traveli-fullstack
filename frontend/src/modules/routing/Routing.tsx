@@ -6,7 +6,7 @@ import {
   Login, 
   BlogHome, 
   BlogCreate 
-} from "../../views"
+} from "@/views"
 
 export const Routing = () => {
   return (
