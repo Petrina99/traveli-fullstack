@@ -1,8 +1,10 @@
 import { Header } from "../../modules"
 
+import style from '../styles/blogHome.module.css'
+
 export const BlogHome = () => {
     return (
-        <div>
+        <div className={style.layout}>
             <Header />
         </div>
     )

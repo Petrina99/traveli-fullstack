@@ -1,12 +1,16 @@
 import style from './header.module.css'
 
+import { Link } from 'react-router-dom'
+
 import searchIcon from '../../assets/icon _search engine_.svg'
 
 export const Header = () => {
     return (
         <header className={style.header}>
             <div className={style.logo}>
-                <h1>Traveli</h1>
+                <Link to="/blog">
+                    <h1>Traveli</h1>
+                </Link>
             </div>
             <div className={style.searchDiv}>
                 <div className={style.inputDiv}>
@@ -18,9 +22,11 @@ export const Header = () => {
             </div>
             <div className={style.user}>
                 <p>Username999</p>
-                <button>
-                    Logout
-                </button>
+                <Link to="/">
+                    <button>
+                        Logout
+                    </button>
+                </Link>
             </div>
         </header>
     )
