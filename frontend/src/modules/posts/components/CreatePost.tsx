@@ -1,4 +1,4 @@
-import style from './createPost.module.css'
+import style from '../styles/createPost.module.css'
 import { useForm } from 'react-hook-form'
 
 type FormValues = {

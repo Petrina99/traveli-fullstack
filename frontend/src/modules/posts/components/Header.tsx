@@ -1,8 +1,8 @@
-import style from './header.module.css'
+import style from '../styles/header.module.css'
 
 import { Link } from 'react-router-dom'
 
-import searchIcon from '../../assets/icon _search engine_.svg'
+import searchIcon from "@/assets/icon _search engine_.svg"
 
 export const Header = () => {
     return (
