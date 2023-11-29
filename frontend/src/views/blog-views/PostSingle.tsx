@@ -83,7 +83,8 @@ export const PostSingle = () => {
             text: commValue,
             user: "gaser"
         }])
-        console.log(comms)
+
+        setCommValue("")
     }
 
     return (
