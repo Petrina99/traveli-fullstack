@@ -6,7 +6,7 @@ import topIcon from '@/assets/icon _leaderboard_.svg'
 
 export const Buttons = () => {
     return (
-        <nav className={style.nav}>
+        <div className={style.nav}>
             <div className={style.buttonGroup}>
                 <button className={style.button}>
                     <p>New</p>
@@ -21,6 +21,6 @@ export const Buttons = () => {
                     <img src={topIcon} alt="leaderboard icon" />
                 </button>
             </div>
-        </nav>
+        </div>
     )
 }
