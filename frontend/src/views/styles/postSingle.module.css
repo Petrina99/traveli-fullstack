@@ -1,0 +1,223 @@
+.layout {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.postContainer {
+    width: 60%;
+    margin-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    border-radius: 10px;
+    background-color: #323131;
+    margin-bottom: 25px;
+    padding-bottom: 1em;
+}
+
+.postHeader {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    box-shadow: 1px 3px 1px rgba(0, 0, 0, 0.3);
+    background-color: #444444;
+    border-radius: 10px 10px 0 0;
+}
+
+.headerUpper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 1em 2em 0 2em;
+}
+
+.headerUpper h1 {
+    width: 100%;
+    color: white;
+    font-size: 4.5vmin;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 800;
+}
+
+.postHeader p {
+    color: white;
+    font-size: 16px;
+    padding: 0 2em 1em 2em;
+    font-weight: 400;
+}
+
+.postContent {
+    width: 100%;
+    padding: 2em;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.location {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.location img {
+    widows: 2vmax;
+    height: 2vmax;
+}
+
+.location p:first-of-type {
+    color: white;
+    font-size: 2vmax;
+    font-weight: 500;
+}
+
+.date {
+    font-size: 14px;
+    color: white;
+}
+
+.postText {
+    width: 100%;
+}
+
+.postText p {
+    color: white;
+    font-size: 16px;
+}
+
+.contentFooter {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.footerDiv {
+    display: flex;
+    align-items: center;
+    background-color: #444444;
+    padding: 1em;
+    border-radius: 10px;
+}
+
+.footerDiv div {
+    display: flex;
+    align-items: center;
+}
+
+.footerDiv span {
+    color: white;
+    font-size: 16px;
+    margin-left: 5px;
+}
+
+.likesDiv {
+    margin-right: 10px;
+}
+
+.footerBtn {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.postComments {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.postComments h1 {
+    width: 90%;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.addComment {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.addDiv {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.addDiv textarea {
+    border-radius: 5px;
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    background-color: #444444;
+    color: white;
+    resize: none;
+    padding-right: 10px;
+    font-family: 'Nunito Sans', sans-serif;
+    padding: 1em;
+    box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.3);
+}
+
+.addDiv button {
+    margin-top: 10px;
+    cursor: pointer;
+    padding: 1em 2em;
+    font-weight: 700;
+    border-radius: 10px;
+    background-color: #444444;
+    border: none;
+    color: white;
+    font-size: 16px;
+}
+
+.addDiv button:hover {
+    color: black;
+    background-color: white;
+}
+
+@media (max-width: 450px) {
+    .headerUpper h1 {
+        font-size: 9vmin;
+    }
+
+    .postContainer {
+        width: 90%;
+    }
+
+    .contentFooter {
+        justify-content: center;
+    }
+
+    .footerDiv div{
+        width: 100%;
+        justify-content: center;
+    }
+
+    .postComments h1 {
+        text-align: center;
+    }
+}
+
+@media (max-width: 770px) {
+    .postContainer {
+        width: 80%;
+    }
+}

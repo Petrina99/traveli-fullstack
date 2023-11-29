@@ -1,0 +1,11 @@
+.layout {
+    width: 100%;
+    background-color: #323131;
+    margin-top: 45px;
+}
+
+.content {
+    text-align: center;
+    color: #C5E117;
+    padding: 2em;
+}

@@ -29,8 +29,8 @@ export const BlogHome = () => {
         <div className={style.layout}>
             <Header />
             <Buttons />
-            {data.map(({id}) => (
-                <Post data={data[id]} key={id}/>
+            {data.map((x) => (
+                <Post data={x} key={x.id} />
             ))}
             <Footer />
         </div>

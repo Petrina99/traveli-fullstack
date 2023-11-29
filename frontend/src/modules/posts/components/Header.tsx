@@ -14,7 +14,14 @@ export const Header = () => {
             </div>
             <div className={style.searchDiv}>
                 <div className={style.inputDiv}>
-                    <input type="text" name="search" id="search" placeholder='Search users' className={style.input}/>
+                    <input 
+                        type="text" 
+                        name="search" 
+                        id="search" 
+                        placeholder='Search users' 
+                        className={style.input}
+                        autoFocus
+                    />
                     <button>
                         <img src={searchIcon} alt="search icon" />
                     </button>

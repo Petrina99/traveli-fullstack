@@ -5,7 +5,8 @@ import {
   Signup, 
   Login, 
   BlogHome, 
-  BlogCreate 
+  BlogCreate,
+  PostSingle
 } from "@/views"
 
 export const Routing = () => {
@@ -16,6 +17,7 @@ export const Routing = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/blog" element={<BlogHome />} />
         <Route path="/blog/create" element={<BlogCreate /> } />
+        <Route path="/blog/:id" element={<PostSingle />} />
     </Routes>
   )
 }
