@@ -1,0 +1,103 @@
+.userContainer {
+    width: 60%;
+    background-color: #323131;
+    margin-top: 50px;
+    border-radius: 10px;
+}
+
+.containerHeader {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding-bottom: 1em;
+    border-bottom: 3px solid #C5E117;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.3);
+}
+
+.containerHeader h1 {
+    width: 100%;
+    color: white;
+    font-size: 4.5vmin;
+    margin-bottom: 15px;
+    padding: 20px 20px 5px;
+}
+
+.containerHeader p {
+    padding: 0 20px;
+    width: 100%;
+    font-size: 16px;
+    color: white;
+}
+
+.posts {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding-bottom: 2em;
+}
+
+.postsHeading {
+    width: 100%;
+    color: white;
+    font-size: 4.5vmin;
+    margin-bottom: 15px;
+    padding: 20px 20px 5px;
+}
+
+.postItem {
+    width: 100%;
+    padding: 1em;
+    border-bottom: 1px solid white;
+    border-top: 1px solid white;
+    margin-bottom: 10px;
+}
+
+.postItem a {
+    text-decoration: none;
+}
+
+.postItem a:hover {
+    text-decoration: underline white;
+}
+
+.postItem h1 {
+    color: white;
+    font-size: 3.5vmin;
+}
+
+.postItem span {
+    color: white;
+    font-size: 16px;
+}
+
+.postItem span:first-of-type {
+    padding-right: 10px;
+    border-right: 1px solid white;
+}
+
+.postItem span:last-of-type {
+    padding-left: 10px;
+}
+
+.postItem p {
+    color: white;
+    font-size: 16px;
+}
+
+@media (max-width: 450px) {
+    .userContainer {
+        width: 90%;
+        justify-content: center;
+    }
+
+    .containerHeader h1 {
+        font-size: 6.5vmin;
+    }
+
+    .postItem h1 {
+        color: white;
+        font-size: 5vmin;
+    }
+}
