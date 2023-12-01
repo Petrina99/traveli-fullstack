@@ -1,6 +1,10 @@
 import style from '../styles/createPost.module.css'
 import { useForm } from 'react-hook-form'
 
+import uniqid from 'uniqid'
+
+import { useBoundStore } from '@/store'
+
 type FormValues = {
     title: string;
     location: string;
@@ -9,11 +13,27 @@ type FormValues = {
 
 export const CreatePost = () => {
 
+    const posts = useBoundStore((state) => state.posts)
+
+    const addPost = useBoundStore((state) => state.addPost)
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
+    console.log(posts)
     const onSubmit = (data: FormValues) => {
-        console.log(data)
-        console.log(data.content)
+        const date = new Date().toDateString()
+
+        const newPost = {
+            id: uniqid(),
+            title: data.title,
+            date: date,
+            location: data.location,
+            content: data.content,
+            user: "gaser",
+            likes: 52,
+            comments: 2
+        }
+
+        addPost(newPost)
     }
 
     return (

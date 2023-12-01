@@ -1,4 +1,4 @@
-import { SignupForm } from "@/modules"
+import { LoginForm } from "@/modules"
 import { Link } from "react-router-dom"
 
 import style from '../styles/signup.module.css'
@@ -10,7 +10,7 @@ export const Login = () => {
                 Traveli
             </Link>
             <div className={style.form}>
-                <SignupForm type="Login" />
+                <LoginForm />
             </div>
             <div className={style.linkLogin}>
                 <span>Don't have an account? </span>

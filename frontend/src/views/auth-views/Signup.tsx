@@ -10,7 +10,7 @@ export const Signup = () => {
                 Traveli
             </Link>
             <div className={style.form}>
-                <SignupForm type="Register" />
+                <SignupForm />
             </div>
             <div className={style.linkLogin}>
                 <span>Already have an account? </span>

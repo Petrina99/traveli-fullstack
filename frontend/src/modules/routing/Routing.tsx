@@ -6,7 +6,8 @@ import {
   Login, 
   BlogHome, 
   BlogCreate,
-  PostSingle
+  PostSingle,
+  Profile
 } from "@/views"
 
 export const Routing = () => {
@@ -18,6 +19,7 @@ export const Routing = () => {
         <Route path="/blog" element={<BlogHome />} />
         <Route path="/blog/create" element={<BlogCreate /> } />
         <Route path="/blog/:id" element={<PostSingle />} />
+        <Route path="/profile/:user" element={<Profile />} />
     </Routes>
   )
 }

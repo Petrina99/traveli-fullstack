@@ -1,7 +1,10 @@
 import { useForm } from 'react-hook-form'
 
+import { useNavigate } from 'react-router-dom';
+
 type FormValues = {
     email: string;
+    username: string;
     password: string;
 }
 
@@ -12,19 +15,21 @@ const validation = {
 
 import style from './styles/signupForm.module.css'
 
-export const SignupForm = (props: { type: string }) => {
+export const SignupForm = () => {
 
-    //const navigate = useNavigate()
+    const navigate = useNavigate()
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
     const onSubmit = (data: FormValues ) => {
         console.log(data)
+
+        navigate("/blog")
     }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
-            <h1 className={style.formHeading}>{props.type}</h1>
+            <h1 className={style.formHeading}>Register</h1>
             <div className={style.formInputDiv}>
                 <input 
                     className={style.input}
@@ -49,7 +54,7 @@ export const SignupForm = (props: { type: string }) => {
                     type="text" 
                     placeholder="Username" 
                     id="username-signup"
-                    {...register('email', {
+                    {...register('username', {
                         required: 'Username field is required.',
                     })} 
                 />

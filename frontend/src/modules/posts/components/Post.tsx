@@ -5,7 +5,7 @@ import style from '../styles/post.module.css'
 
 interface propType {
     data : {
-        id: number;
+        id: string;
         title: string;
         date: string;
         location: string;
@@ -63,9 +63,11 @@ export const Post = ({data}: propType) => {
                             <span>{data.likes}</span>
                         </div>
                         <div className={style.commDiv}>
-                            <button className={style.footerBtn}>
-                                <img src={commIcon} alt="comment icon" />
-                            </button>
+                            <Link to={`/blog/${data.id}?comment`}>
+                                <button className={style.footerBtn}>
+                                    <img src={commIcon} alt="comment icon" />
+                                </button>
+                            </Link>
                             <span>{data.comments}</span>
                         </div>
                     </div>
