@@ -14,16 +14,17 @@ type FormValues = {
 export const CreatePost = () => {
 
     const posts = useBoundStore((state) => state.posts)
-
     const addPost = useBoundStore((state) => state.addPost)
+
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
     console.log(posts)
     const onSubmit = (data: FormValues) => {
         const date = new Date().toDateString()
+        const id = uniqid();
 
         const newPost = {
-            id: uniqid(),
+            id: id,
             title: data.title,
             date: date,
             location: data.location,
