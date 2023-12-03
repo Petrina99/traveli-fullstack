@@ -7,7 +7,7 @@ Still work in progress
 - User can comment and like posts of other users
 
 ### **Technologies used**
-- Express.js - Backend
+- Express.js - Backend REST api
 - PostgreSQL - Database, Prisma ORM
 - React - Frontend
 - Zustand - State managment
