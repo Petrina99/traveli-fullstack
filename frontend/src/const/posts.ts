@@ -1,7 +1,7 @@
 
 const data = 
     [{
-        id: "gasdasw231231sdasdasda",
+        id: 0,
         title: "Trip to New York",
         date: "22.12.2024.",
         location: "New York, USA",
@@ -10,7 +10,7 @@ const data =
         likes: 1400,
         comments: 220
     },{
-        id: "sdsadas",
+        id: 1,
         title: "Trip to Chicago",
         date: "22.12.2024.",
         location: "Chicago, USA",
@@ -19,7 +19,7 @@ const data =
         likes: 1560,
         comments: 450
     }, {
-        id: "sdasdasdasda",
+        id: 2,
         title: "Trip to Las Vegas",
         date: "22.12.2024.",
         location: "Las Vegas, USA",

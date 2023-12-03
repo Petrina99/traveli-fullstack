@@ -5,7 +5,7 @@ import style from '../styles/post.module.css'
 
 interface propType {
     data : {
-        id: string;
+        id: number;
         title: string;
         date: string;
         location: string;

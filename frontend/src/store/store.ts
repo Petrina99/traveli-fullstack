@@ -5,7 +5,8 @@ import { PostModel, UserModel, CommentModel } from '@/models'
 interface PostSlice {
     posts: PostModel[];
     addPost: (post: PostModel) => void;
-    deletePost: (id: string) => void;
+    deletePost: (id: number) => void;
+    reset: () => void;
 }
 
 interface UserSlice {
@@ -28,7 +29,8 @@ const createPostSlice: StateCreator<
     addPost: (post) => set((state) => ({ posts: [...state.posts, post] })),
     deletePost: (id) => set((state) => ({ posts: state.posts.filter((post) => {
         return post.id !== id
-    })}))
+    })})),
+    reset: () => set((state) => ({ posts: [] }))
 })
 
 const createUserSlice: StateCreator<

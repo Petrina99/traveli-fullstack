@@ -1,5 +1,7 @@
 import { Header, Post, Footer } from "@/modules"
 
+import { useEffect } from "react"
+
 import style from '../styles/blogHome.module.css'
 
 import { useBoundStore } from "@/store"
@@ -12,16 +14,18 @@ export const BlogHome = () => {
 
     const posts = useBoundStore((state) => state.posts)
     const addPosts = useBoundStore((state) => state.addPost)
+    const resetPosts = useBoundStore((state) => state.reset)
 
-    for (let i = 0; i < data.length; i++) {
-        addPosts(data[i])
-    }
+    useEffect(() => {
+        resetPosts()
+        data.forEach((d) => addPosts(d))
+    }, [])
     
     return (
         <div className={style.layout}>
             <Header />
             {posts.map((x) => (
-                <Post data={x} key={x.id} />
+                <Post data={x} key={x.id}/>
             ))}
             <Footer />
         </div>
