@@ -3,19 +3,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import style from '../styles/post.module.css'
 
-interface propType {
-    data : {
-        id: number;
-        title: string;
-        date: string;
-        location: string;
-        content: string;
-        user: string;
-        likes: number;
-        comments: number;
-    }
-}
-
 import locationIcon from '@/assets/icon _Alternate Map Marker_.svg'
 
 import likeIcon from '@/assets/heart-svgrepo-com.svg'
@@ -23,7 +10,13 @@ import activeLikeIcon from '@/assets/heart-svgrepo-com-yellow.svg'
 
 import commIcon from '@/assets/comment-5-svgrepo-com.svg'
 
-export const Post = ({data}: propType) => {
+import { PostModel } from '@/models';
+
+interface propTypes {
+    data: PostModel
+}
+
+export const Post = ({data} : propTypes) => {
 
     const [isLikeActive, setIsLikeActive] = useState(false);
 

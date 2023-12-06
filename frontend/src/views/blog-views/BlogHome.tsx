@@ -1,26 +1,15 @@
 import { Header, Post, Footer } from "@/modules"
 
-import { useEffect } from "react"
-
 import style from '../styles/blogHome.module.css'
 
 import { useBoundStore } from "@/store"
 
-// probni podatci prije izrade backenda
-
-import data from '@/const/posts'
-
 export const BlogHome = () => {
 
     const posts = useBoundStore((state) => state.posts)
-    const addPosts = useBoundStore((state) => state.addPost)
-    const resetPosts = useBoundStore((state) => state.reset)
+    const data = useBoundStore((state) => state.user)
 
-    useEffect(() => {
-        resetPosts()
-        data.forEach((d) => addPosts(d))
-    }, [])
-    
+    console.log(data)
     return (
         <div className={style.layout}>
             <Header />

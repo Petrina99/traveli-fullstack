@@ -1,6 +1,7 @@
 import express, { Express } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors'
+import { errorHandler } from './middleware/errorMiddleware'
 
 import { 
   commentRouter, 
@@ -23,6 +24,8 @@ app.use(cors())
 app.use('/api/posts', postRouter)
 app.use('/api/users', userRouter)
 app.use('/api/comments', commentRouter)
+
+app.use(errorHandler)
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);

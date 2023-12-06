@@ -6,5 +6,6 @@ export interface PostModel {
     content: string;
     user: string;
     likes: number;
+    authorId: number;
     comments: number;
 }

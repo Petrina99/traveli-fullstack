@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 
 import uniqid from 'uniqid'
 
-import { useBoundStore } from '@/store'
+//import { useBoundStore } from '@/store'
 
 type FormValues = {
     title: string;
@@ -13,12 +13,12 @@ type FormValues = {
 
 export const CreatePost = () => {
 
-    const posts = useBoundStore((state) => state.posts)
-    const addPost = useBoundStore((state) => state.addPost)
+    //const posts = useBoundStore((state) => state.posts)
+    //const addPost = useBoundStore((state) => state.addPost)
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
-    console.log(posts)
+    //console.log(posts)
     const onSubmit = (data: FormValues) => {
         const date = new Date().toDateString()
         const id = uniqid();
@@ -34,7 +34,7 @@ export const CreatePost = () => {
             comments: 2
         }
 
-        addPost(newPost)
+        //addPost(newPost)
     }
 
     return (

@@ -1,5 +1,8 @@
 import { useForm } from 'react-hook-form'
 
+import { useState } from 'react'
+import { useAuth } from './useAuth';
+
 import { useNavigate } from 'react-router-dom';
 
 type FormValues = {
@@ -14,17 +17,28 @@ const validation = {
 };
 
 import style from './styles/signupForm.module.css'
+import { useBoundStore } from '@/store';
 
 export const SignupForm = () => {
 
+    const { fetchRegister } = useAuth()
+
     const navigate = useNavigate()
 
+    const state = useBoundStore((state) => state.user)
+    const addUser = useBoundStore((state) => state.addUser)
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
-    const onSubmit = (data: FormValues ) => {
-        console.log(data)
 
-        navigate("/blog")
+    const onSubmit = async (data: FormValues) => {
+        
+        const user = await fetchRegister(data)
+
+        const isAdded = addUser(user)
+
+        if (isAdded) {
+            navigate("/blog")
+        }
     }
 
     return (

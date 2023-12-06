@@ -1,10 +1,22 @@
 import style from '../styles/header.module.css'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import searchIcon from "@/assets/icon _search engine_.svg"
 
+import { useBoundStore } from '@/store'
+
 export const Header = () => {
+
+    const logoutUser = useBoundStore((state) => state.logout)
+
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
+        logoutUser()
+        navigate('/')
+    }
+
     return (
         <header className={style.header}>
             <div className={style.logo}>
@@ -30,7 +42,7 @@ export const Header = () => {
             <div className={style.user}>
                 <p>Username999</p>
                 <Link to="/">
-                    <button>
+                    <button onClick={handleLogout}>
                         Logout
                     </button>
                 </Link>

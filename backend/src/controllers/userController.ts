@@ -18,7 +18,7 @@ export const getUser = async (req: Request, res: Response) => {
 
     const user = await prisma.user.findUnique({
         where: {
-        id: Number(id)
+            id: Number(id)
         }
     })
 
@@ -94,10 +94,12 @@ export const loginUser = async (req: Request, res: Response) => {
         res.json({
             user: loggedUser,
             id: loggedUser.id,
-            token: generateJWT(loggedUser.id)
+            token: generateJWT(loggedUser.id),
+            status: true
         })
     } else {
-        res.status(400)
-        throw new Error('Invalid credentials')
+        res.json({
+            status: false
+        })
     }
 }
