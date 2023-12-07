@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form'
 
-import { useState } from 'react'
 import { useAuth } from './useAuth';
 
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +24,6 @@ export const SignupForm = () => {
 
     const navigate = useNavigate()
 
-    const state = useBoundStore((state) => state.user)
     const addUser = useBoundStore((state) => state.addUser)
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 

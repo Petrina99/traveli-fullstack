@@ -69,7 +69,7 @@
     align-items: center;
 }
 
-.user p {
+.user a {
     color: white;
     font-size: 16px;
     padding: 0.5em;
@@ -77,6 +77,11 @@
     overflow: hidden;
     text-overflow: ellipsis;
     cursor: pointer;
+    text-decoration: none;
+}
+
+.user a:hover {
+    text-decoration: underline;
 }
 
 .user button {

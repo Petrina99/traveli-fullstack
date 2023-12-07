@@ -26,7 +26,7 @@ export const loginUser = async (userData: UserModel) => {
 }
 
 export const getUser = async (id: number) => {
-  const response = await axios.get(API_URL +`${id}`)
+  const response = await axios.get(API_URL + id)
 
   return response.data
 }

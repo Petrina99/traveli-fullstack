@@ -19,7 +19,7 @@ export const Routing = () => {
         <Route path="/blog" element={<BlogHome />} />
         <Route path="/blog/create" element={<BlogCreate /> } />
         <Route path="/blog/:id" element={<PostSingle />} />
-        <Route path="/profile/:user" element={<Profile />} />
+        <Route path="/profile/:id" element={<Profile />} />
     </Routes>
   )
 }

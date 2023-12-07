@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 import style from '../styles/post.module.css'
@@ -10,7 +10,8 @@ import activeLikeIcon from '@/assets/heart-svgrepo-com-yellow.svg'
 
 import commIcon from '@/assets/comment-5-svgrepo-com.svg'
 
-import { PostModel } from '@/models';
+import { PostModel, UserModel } from '@/models';
+import { getUser } from '@/features/users/userService';
 
 interface propTypes {
     data: PostModel
@@ -20,10 +21,22 @@ export const Post = ({data} : propTypes) => {
 
     const [isLikeActive, setIsLikeActive] = useState(false);
 
+    const [profile, setProfile] = useState<UserModel>()
+
     const handleLike = () => {
         setIsLikeActive(!isLikeActive)
     }
     
+    useEffect(() => {
+        const getProfile = async () => {
+
+            const userData = await getUser(data.authorId)
+            setProfile(userData)
+        }
+
+        getProfile()
+    }, [])
+
     const icon = isLikeActive ? activeLikeIcon : likeIcon;
 
     return (
@@ -32,12 +45,12 @@ export const Post = ({data} : propTypes) => {
                 <div className={style.headerUpper}>
                     <h1>{data.title}</h1>
                 </div>
-               <p>@{data.user}</p>
+               <p>@{profile?.username}</p>
             </div>
             <div className={style.content}>
                 <div className={style.location}>
                     <p>{data.location} <img src={locationIcon} /></p>
-                    <p className={style.date}>{data.date}</p>
+                    <p className={style.date}>{data.date?.slice(0, 10)}</p>
                 </div>
                 <div className={style.text}>
                     <p>{data.content}</p>

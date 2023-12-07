@@ -1,11 +1,10 @@
 import { useParams, useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
 
-import { Header, Comment, Footer, AddComment } from "@/modules"
+import { Header, Comment, AddComment } from "@/modules"
 
 import style from '../styles/postSingle.module.css'
 
-import data from '@/const/posts'
 import comments from '@/const/comments'
 
 import locationIcon from '@/assets/icon _Alternate Map Marker_.svg'
@@ -16,23 +15,54 @@ import activeLikeIcon from '@/assets/heart-svgrepo-com-yellow.svg'
 import commIcon from '@/assets/comment-5-svgrepo-com.svg'
 import activeCommIcon from '@/assets/comment-yellow.svg'
 
+import { useBoundStore } from "@/store"
+import { PostModel, UserModel } from "@/models"
+import { getUser } from "@/features/users/userService"
+
 export const PostSingle = () => {
 
     const { id } = useParams()
     let loc = useLocation()
 
-    const [comms, setComms] = useState(comments)
+    const posts = useBoundStore((state) => state.posts)
 
+    const [profile, setProfile] = useState<UserModel>()
+    const [comms, setComms] = useState(comments)
+    const [post, setPost] = useState<PostModel>()
     const[isLikeActive, setIsLikeActive] = useState(false)
     const [isCommentActive, setIsCommentActive] = useState(false)
+
+    const findPost = () => {
+        let foundPost;
+
+        for (let i = 0; i < posts.length; i++) {
+            if (posts[i].id === Number(id)) {
+                foundPost = posts[i]
+                break;
+            }
+        }
+
+        setPost(foundPost)
+    }
 
     useEffect(() => {
         if (loc.search === "?comment") {
             setIsCommentActive(true)
         }
-    }, [])
 
-    const post = data[id ? parseInt(id): 0]
+        const getProfile = async () => {
+
+            const currentPost = posts.find((p) => p.id === Number(id))
+
+            if (currentPost) {
+                const data = await getUser(currentPost.authorId)
+                setProfile(data)
+            }
+        }
+
+        findPost()
+        getProfile()
+    })
 
     const lIcon = isLikeActive ? activeLikeIcon : likeIcon;
     const cIcon = isCommentActive ? activeCommIcon : commIcon;
@@ -51,17 +81,17 @@ export const PostSingle = () => {
             <div className={style.postContainer}>
                 <div className={style.postHeader}>
                     <div className={style.headerUpper}>
-                        <h1>{post.title}</h1>
+                        <h1>{post?.title}</h1>
                     </div>
-                    <p>@{post.user}</p>
+                    <p>@{profile?.username}</p>
                 </div>
                 <div className={style.postContent}>
                     <div className={style.location}>
-                        <p>{post.location} <img src={locationIcon} alt="location icon" /></p>
-                        <p className={style.date}>{post.date}</p>
+                        <p>{post?.location} <img src={locationIcon} alt="location icon" /></p>
+                        <p className={style.date}>{post?.date}</p>
                     </div>
                     <div className={style.postText}>
-                        <p>{post.content}</p>
+                        <p>{post?.content}</p>
                     </div>
                     <div className={style.contentFooter}>
                         <div className={style.footerDiv}>
@@ -69,13 +99,13 @@ export const PostSingle = () => {
                                 <button className={style.footerBtn} onClick={handleLike}>
                                     <img src={lIcon} alt="like icon" />
                                 </button>
-                                <span>{post.likes}</span>
+                                <span>{post?.likes}</span>
                             </div>
                             <div>
                                 <button className={style.footerBtn} onClick={handleComment}>
                                     <img src={cIcon} alt="comment icon" />
                                 </button>
-                                <span>{post.comments}</span>
+                                <span>{post?.comments}</span>
                             </div>
                         </div>
                     </div>
@@ -92,7 +122,6 @@ export const PostSingle = () => {
                     <AddComment />
                 }
             </div>
-            <Footer />
         </div>
     )
 }

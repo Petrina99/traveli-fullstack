@@ -1,4 +1,5 @@
 import { StateCreator } from "zustand";
+import { persist } from "zustand/middleware";
 
 import { UserModel } from '@/models'
 
@@ -11,16 +12,22 @@ export interface UserSlice {
 }
 
 export const createUserSlice: StateCreator<
-    UserSlice
-> = (set) => ({
+    UserSlice,
+    [], [["zustand/persist", unknown]]
+> = persist((set) => ({
     user: null,
     logout: async () => {
        await logoutUser()
        set(({ user: null }))
     },
     addUser: (userData) => {
-        set({ user: userData })
-
-        return true;
+        if (userData !== undefined) {
+            set({ user: userData })
+            return true;
+        } else {
+            return false;
+        }
     } 
+}), {
+    name: 'user-storage'
 })

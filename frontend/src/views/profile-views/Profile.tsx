@@ -7,7 +7,6 @@ export const Profile = () => {
         <div className={style.layout}>
             <Header />
             <UserProfile />
-            <Footer />
         </div>
     )
 }

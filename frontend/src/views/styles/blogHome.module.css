@@ -5,3 +5,30 @@
     align-items: flex-start;
     width: 100%;
 }
+
+.addNewPost {
+    width: 60%;
+    margin-top: 25px;
+}
+
+.addNewPost a {
+    text-decoration: none;
+    color: white;
+    font-size: 24px;
+}
+
+.addNewPost a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 450px) {
+    .addNewPost {
+        width: 90%;
+    }
+}
+
+@media (max-width: 770px) {
+    .addNewPost {
+        width: 80%;
+    }
+}

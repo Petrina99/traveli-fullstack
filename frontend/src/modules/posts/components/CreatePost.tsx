@@ -1,9 +1,11 @@
 import style from '../styles/createPost.module.css'
 import { useForm } from 'react-hook-form'
 
-import uniqid from 'uniqid'
+import { useBoundStore } from '@/store'
 
-//import { useBoundStore } from '@/store'
+import { useNavigate } from 'react-router-dom'
+
+import postService from '@/features/posts/postService'
 
 type FormValues = {
     title: string;
@@ -13,28 +15,21 @@ type FormValues = {
 
 export const CreatePost = () => {
 
-    //const posts = useBoundStore((state) => state.posts)
-    //const addPost = useBoundStore((state) => state.addPost)
-
+    const navigate = useNavigate()
+    const user = useBoundStore((state) => state.user)
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
     //console.log(posts)
     const onSubmit = (data: FormValues) => {
-        const date = new Date().toDateString()
-        const id = uniqid();
 
-        const newPost = {
-            id: id,
-            title: data.title,
-            date: date,
-            location: data.location,
-            content: data.content,
-            user: "gaser",
-            likes: 52,
-            comments: 2
+        // trebamo jos authorId
+        const { title, location, content } = data
+
+        let authorId = user?.id
+        if (authorId) {
+            const newPost = postService.createPost({ title, location, content, authorId })
+            navigate('/blog')
         }
-
-        //addPost(newPost)
     }
 
     return (

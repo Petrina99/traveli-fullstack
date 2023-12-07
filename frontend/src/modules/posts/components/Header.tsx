@@ -9,6 +9,7 @@ import { useBoundStore } from '@/store'
 export const Header = () => {
 
     const logoutUser = useBoundStore((state) => state.logout)
+    const user = useBoundStore((state) => state.user)
 
     const navigate = useNavigate()
 
@@ -40,7 +41,9 @@ export const Header = () => {
                 </div>
             </div>
             <div className={style.user}>
-                <p>Username999</p>
+                <Link to={`/profile/${user?.id}`}>
+                    Username999
+                </Link>
                 <Link to="/">
                     <button onClick={handleLogout}>
                         Logout
