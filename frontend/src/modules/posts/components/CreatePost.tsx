@@ -1,7 +1,7 @@
 import style from '../styles/createPost.module.css'
 import { useForm } from 'react-hook-form'
 
-import { useBoundStore } from '@/store'
+import { useUserStore } from '@/store'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -16,7 +16,7 @@ type FormValues = {
 export const CreatePost = () => {
 
     const navigate = useNavigate()
-    const user = useBoundStore((state) => state.user)
+    const user = useUserStore((state) => state.user)
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
     //console.log(posts)

@@ -10,16 +10,6 @@ export const AddComment = () => {
 
     }
 
-    /*const handleAdd = () => {
-        setComms(current => [...current, {
-            id: 55,
-            text: commValue,
-            user: "gaser"
-        }])
-
-        setCommValue("")
-    }*/
-
     return (
         <div className={style.addComment}>
             <div className={style.addDiv}>

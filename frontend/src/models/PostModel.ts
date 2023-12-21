@@ -1,11 +1,12 @@
+import { CommentModel, LikeModel } from ".";
+
 export interface PostModel {
     id?: number;
     title: string;
     date?: string;
     location: string;
     content: string;
-    user?: string;
-    likes?: number;
+    likes?: LikeModel[];
     authorId: number;
-    comments?: number;
+    comments?: CommentModel[];
 }
