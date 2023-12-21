@@ -15,14 +15,14 @@ const validation = {
 
 import style from './styles/signupForm.module.css'
 
-import { useBoundStore } from '@/store';
+import { useUserStore } from '@/store';
 
 export const LoginForm = () => {
 
     const { fetchLogin } = useAuth();
 
-    const addUser = useBoundStore((state) => state.addUser)
-
+    //const addUser = useBoundStore((state) => state.addUser)
+    const addUser = useUserStore((state) => state.addUser)
     const navigate = useNavigate()
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();

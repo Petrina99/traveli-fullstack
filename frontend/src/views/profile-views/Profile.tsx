@@ -1,6 +1,6 @@
 import style from '../styles/profile.module.css'
 
-import { Header, Footer, UserProfile } from '@/modules'
+import { Header, UserProfile } from '@/modules'
 
 export const Profile = () => {
     return (

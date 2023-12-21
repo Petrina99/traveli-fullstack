@@ -5,7 +5,7 @@ import { useBoundStore } from '@/store'
 
 import { useNavigate } from 'react-router-dom'
 
-import postService from '@/features/posts/postService'
+import postService from '@/store/post-store/postService'
 
 type FormValues = {
     title: string;

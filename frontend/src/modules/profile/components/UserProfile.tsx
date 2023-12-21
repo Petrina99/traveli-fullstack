@@ -6,22 +6,23 @@ import { useEffect, useState } from 'react'
 
 import { Link } from 'react-router-dom'
 
-import { useBoundStore } from '@/store'
+import { usePostStore, useUserStore } from '@/store'
 import { PostModel, UserModel } from '@/models'
-import { getUser } from '@/features/users/userService'
+import userService from '@/store/user-store/userService'
 
-import postService from '@/features/posts/postService'
+import postService from '@/store/post-store/postService'
+
 export const UserProfile = () => {
 
     const { id } = useParams()
 
     const [profile, setProfile] = useState<UserModel>()
 
-    console.log(id)
     const [filteredPosts, setFilteredPosts] = useState<PostModel[]>()
-    const user = useBoundStore((state) => state.user)
-    const posts = useBoundStore((state) => state.posts)
-    const deletePost = useBoundStore((state) => state.deletePost)
+
+    //const user = useBoundStore((state) => state.user)
+    const user = useUserStore((state) => state.user)
+    const posts = usePostStore((state) => state.posts)
 
     const filterPosts = () => {
         let fillPosts = [];
@@ -40,8 +41,6 @@ export const UserProfile = () => {
 
         const response = await postService.deletePost(Number(value))
 
-        await deletePost(response.id)
-
         let fillPosts = [];
         for (let i = 0; i < posts.length; i++) {
             if (posts[i].id !== response.id && posts[i].authorId === Number(id)) {
@@ -55,7 +54,7 @@ export const UserProfile = () => {
 
     useEffect(() => {
         const getProfile = async () => {
-            const data = await getUser(Number(id))
+            const data = await userService.getUser(Number(id))
 
             setProfile(data)
         }

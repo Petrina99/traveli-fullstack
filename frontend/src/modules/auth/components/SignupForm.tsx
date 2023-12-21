@@ -16,7 +16,7 @@ const validation = {
 };
 
 import style from './styles/signupForm.module.css'
-import { useBoundStore } from '@/store';
+import { useUserStore } from '@/store';
 
 export const SignupForm = () => {
 
@@ -24,7 +24,8 @@ export const SignupForm = () => {
 
     const navigate = useNavigate()
 
-    const addUser = useBoundStore((state) => state.addUser)
+    //const addUser = useBoundStore((state) => state.addUser)
+    const addUser = useUserStore((state) => state.addUser)
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
 

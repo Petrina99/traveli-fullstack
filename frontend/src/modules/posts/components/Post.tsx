@@ -11,7 +11,7 @@ import activeLikeIcon from '@/assets/heart-svgrepo-com-yellow.svg'
 import commIcon from '@/assets/comment-5-svgrepo-com.svg'
 
 import { PostModel, UserModel } from '@/models';
-import { getUser } from '@/features/users/userService';
+import userService from '@/store/user-store/userService';
 
 interface propTypes {
     data: PostModel
@@ -30,7 +30,7 @@ export const Post = ({data} : propTypes) => {
     useEffect(() => {
         const getProfile = async () => {
 
-            const userData = await getUser(data.authorId)
+            const userData = await userService.getUser(data.authorId)
             setProfile(userData)
         }
 
@@ -55,11 +55,6 @@ export const Post = ({data} : propTypes) => {
                 <div className={style.text}>
                     <p>{data.content}</p>
                 </div>
-                <div className={style.buttonDiv}>
-                    <Link to={`/blog/${data.id}`}>
-                        <button>Expand article</button>
-                    </Link>
-                </div>
                 <div className={style.contentFooter}>
                     <div className={style.footerDiv}>
                         <div className={style.likesDiv}>
@@ -76,6 +71,11 @@ export const Post = ({data} : propTypes) => {
                             </Link>
                             <span>{data.comments}</span>
                         </div>
+                    </div>
+                    <div className={style.buttonDiv}>
+                        <Link to={`/blog/${data.id}`}>
+                            <button>Expand article</button>
+                        </Link>
                     </div>
                 </div>
             </div>

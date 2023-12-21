@@ -4,12 +4,13 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import searchIcon from "@/assets/icon _search engine_.svg"
 
-import { useBoundStore } from '@/store'
+import { useUserStore } from '@/store'
 
 export const Header = () => {
 
-    const logoutUser = useBoundStore((state) => state.logout)
-    const user = useBoundStore((state) => state.user)
+    const logoutUser = useUserStore((state) => state.logout)
+    const user = useUserStore((state) => state.user)
+    //const user = useBoundStore((state) => state.user)
 
     const navigate = useNavigate()
 
@@ -42,7 +43,7 @@ export const Header = () => {
             </div>
             <div className={style.user}>
                 <Link to={`/profile/${user?.id}`}>
-                    Username999
+                    {user?.username}
                 </Link>
                 <Link to="/">
                     <button onClick={handleLogout}>

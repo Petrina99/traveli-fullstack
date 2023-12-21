@@ -15,16 +15,16 @@ import activeLikeIcon from '@/assets/heart-svgrepo-com-yellow.svg'
 import commIcon from '@/assets/comment-5-svgrepo-com.svg'
 import activeCommIcon from '@/assets/comment-yellow.svg'
 
-import { useBoundStore } from "@/store"
+import { usePostStore } from "@/store"
 import { PostModel, UserModel } from "@/models"
-import { getUser } from "@/features/users/userService"
+import userService from "@/store/user-store/userService"
 
 export const PostSingle = () => {
 
     const { id } = useParams()
     let loc = useLocation()
 
-    const posts = useBoundStore((state) => state.posts)
+    const posts = usePostStore((state) => state.posts)
 
     const [profile, setProfile] = useState<UserModel>()
     const [comms, setComms] = useState(comments)
@@ -52,10 +52,10 @@ export const PostSingle = () => {
 
         const getProfile = async () => {
 
-            const currentPost = posts.find((p) => p.id === Number(id))
+            const currentPost = posts.find((p:PostModel) => p.id === Number(id))
 
             if (currentPost) {
-                const data = await getUser(currentPost.authorId)
+                const data = await userService.getUser(currentPost.authorId)
                 setProfile(data)
             }
         }

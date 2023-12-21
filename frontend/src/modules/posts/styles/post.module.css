@@ -89,7 +89,7 @@
 .buttonDiv {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
     margin-top: 15px;
 }
@@ -171,10 +171,6 @@
 
     .footerDiv div {
         width: 100%;
-        justify-content: center;
-    }
-
-    .contentFooter {
         justify-content: center;
     }
 }

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const API_URL = `http://localhost:8000/api/users/`;
 
-export const registerUser = async (userData: UserModel) => {
+const registerUser = async (userData: UserModel) => {
 
 
     let response = await axios.post(API_URL + 'register', userData);
@@ -15,7 +15,7 @@ export const registerUser = async (userData: UserModel) => {
     return response.data;
 }
 
-export const loginUser = async (userData: UserModel) => {
+const loginUser = async (userData: UserModel) => {
     const response = await axios.post(API_URL + 'login', userData);
   
     if (response.data) {
@@ -25,12 +25,21 @@ export const loginUser = async (userData: UserModel) => {
     return response.data;
 }
 
-export const getUser = async (id: number) => {
+const getUser = async (id: number) => {
   const response = await axios.get(API_URL + id)
 
   return response.data
 }
 
-export const logoutUser = async () => {
+const logoutUser = async () => {
     localStorage.removeItem('user');
 }
+
+const userService = {
+  registerUser,
+  loginUser,
+  getUser,
+  logoutUser
+}
+
+export default userService;
