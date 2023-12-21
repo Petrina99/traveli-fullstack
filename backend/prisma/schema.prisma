@@ -18,6 +18,7 @@ model User {
   role Role @default(USER)
   posts Post[]
   comments Comment[]
+  likes Like[]
 }
 
 model Post {
@@ -26,20 +27,28 @@ model Post {
   date DateTime @default(now())
   location String
   content String
-  likes Int @default(0)
-  author User? @relation(fields: [authorId], references: [id])
+  author User? @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId Int?
   comments Comment[]
+  likes Like[]
 }
 
 model Comment {
   id Int @id @default(autoincrement())
   text String
   date DateTime @default(now())
-  post Post @relation(fields: [postId], references: [id])
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId Int
-  author User @relation(fields: [authorId], references: [id])
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId Int
+}
+
+model Like {
+  id Int @id @default(autoincrement())
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId Int
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
 }
 
 enum Role {

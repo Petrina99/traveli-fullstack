@@ -4,9 +4,7 @@ import {
     getPost,
     getUserPosts,
     createPost,
-    deletePost,
-    likePost,
-    dislikePost
+    deletePost
 } from '../controllers'
 
 export const postRouter = express.Router()
@@ -18,6 +16,3 @@ postRouter.route('/userpost/:id').get(getUserPosts)
 postRouter.route('/').post(createPost)
 
 postRouter.route('/:id').delete(deletePost)
-
-postRouter.route('/like/:id').put(likePost)
-postRouter.route('/dislike/:id').put(dislikePost)

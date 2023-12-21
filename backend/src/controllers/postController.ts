@@ -65,34 +65,3 @@ export const deletePost = async (req: Request, res: Response) => {
         res.json({ error: "Post with that id does not exist" })
       }
 }
-
-export const likePost = async (req: Request, res: Response) => {
-    const { id } = req.params
-
-    const updatedPost = await prisma.post.update({
-        where: {id: Number(id)},
-        data: {
-            likes: {
-              increment: 1
-            }
-          }
-        })
-      
-    res.json(updatedPost)
- 
-}
-
-export const dislikePost = async (req: Request, res: Response) => {
-    const { id } = req.params
-
-    const updatedPost = await prisma.post.update({
-        where: {id: Number(id)},
-        data: {
-            likes: {
-              decrement: 1
-            }
-          }
-        })
-      
-    res.json(updatedPost)
-}
