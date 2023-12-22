@@ -18,13 +18,14 @@ export const getComments = async (req: Request, res: Response) => {
 export const createComment = async (req: Request, res: Response) => {
     const { id, userid } = req.params 
   
-    const { text } = req.body
+    const { text }  = req.body
+
     const newComment = await prisma.comment.create({
       data: {
-        text: text,
-        author: { connect: {id: Number(userid)}},
-        post: { connect: {id: Number(id)}}
-      }
+        text,
+        author: { connect: { id: Number(userid) }},  
+        post: { connect: { id: Number(id) }}
+      },
     })
   
     res.json(newComment)

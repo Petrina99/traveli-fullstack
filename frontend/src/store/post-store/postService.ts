@@ -11,11 +11,7 @@ const getPosts = async () => {
 }
 
 const getUserPosts = async (id: number) => {
-    const response = await axios.get(API_URL + `userpost`, {
-        params: {
-            id
-        }
-    })
+    const response = await axios.get(API_URL + `userpost/` + id) 
 
     return response.data
 }

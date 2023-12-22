@@ -15,7 +15,7 @@ import activeLikeIcon from '@/assets/heart-svgrepo-com-yellow.svg'
 import commIcon from '@/assets/comment-5-svgrepo-com.svg'
 import activeCommIcon from '@/assets/comment-yellow.svg'
 
-import { usePostStore } from "@/store"
+import { useCommentStore, usePostStore } from "@/store"
 import { PostModel, UserModel } from "@/models"
 import userService from "@/store/user-store/userService"
 
@@ -25,6 +25,9 @@ export const PostSingle = () => {
     let loc = useLocation()
 
     const posts = usePostStore((state) => state.posts)
+
+    const comments = useCommentStore((state) => state.comments)
+    const getAllComments = useCommentStore((state) => state.getComments)
 
     const [profile, setProfile] = useState<UserModel>()
     const [comms, setComms] = useState(comments)
@@ -60,9 +63,14 @@ export const PostSingle = () => {
             }
         }
 
+        const getComments = async () => {
+            await getAllComments(Number(id))
+        }
+
+        getComments()
         findPost()
         getProfile()
-    })
+    }, [comments])
 
     const lIcon = isLikeActive ? activeLikeIcon : likeIcon;
     const cIcon = isCommentActive ? activeCommIcon : commIcon;
@@ -99,13 +107,13 @@ export const PostSingle = () => {
                                 <button className={style.footerBtn} onClick={handleLike}>
                                     <img src={lIcon} alt="like icon" />
                                 </button>
-                                <span>{post?.likes}</span>
+                                <span>{/*{post.likes} */}5</span>
                             </div>
                             <div>
                                 <button className={style.footerBtn} onClick={handleComment}>
                                     <img src={cIcon} alt="comment icon" />
                                 </button>
-                                <span>{post?.comments}</span>
+                                <span>{/*{post.comments} */}5</span>
                             </div>
                         </div>
                     </div>
@@ -113,13 +121,13 @@ export const PostSingle = () => {
                 {isCommentActive === false ? "" :
                     <div className={style.postComments}>
                         <h1>Comments</h1>
-                        {comms.map((x) => (
+                        {comments.map((x) => (
                             <Comment data={x} key={x.id} />
                         ))}
                     </div>
                 }
                 {isCommentActive === false ? "" :
-                    <AddComment />
+                    <AddComment data={Number(id)}/>
                 }
             </div>
         </div>

@@ -5,15 +5,22 @@ import { CommentModel } from '@/models'
 
 export interface CommentState {
     comments: CommentModel[];
+    getComments: (id: number) => void;
     addComment: (comm: CommentModel) => void;
     deleteComment: (id: number) => void;
 }
+
+import commentService from "./commentService";
 
 export const useCommentStore = create<CommentState>()(
     devtools(
         persist(
             (set) => ({
                 comments: [],
+                getComments: async (id) => {
+                    const fetchedComments = await commentService.getAllComments(id)
+                    set(() => ({ comments: fetchedComments }))
+                },
                 addComment: (comm) => {
                     set((state) => ({ comments: [...state.comments, comm] }))
                 },

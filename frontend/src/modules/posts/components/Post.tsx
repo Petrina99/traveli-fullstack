@@ -12,6 +12,7 @@ import commIcon from '@/assets/comment-5-svgrepo-com.svg'
 
 import { PostModel, UserModel } from '@/models';
 import userService from '@/store/user-store/userService';
+import { useCommentStore } from '@/store';
 
 interface propTypes {
     data: PostModel
@@ -22,6 +23,8 @@ export const Post = ({data} : propTypes) => {
     const [isLikeActive, setIsLikeActive] = useState(false);
 
     const [profile, setProfile] = useState<UserModel>()
+
+    const comments = useCommentStore((state) => state.comments)
 
     const handleLike = () => {
         setIsLikeActive(!isLikeActive)
@@ -36,7 +39,7 @@ export const Post = ({data} : propTypes) => {
 
         getProfile()
     }, [])
-
+    
     const icon = isLikeActive ? activeLikeIcon : likeIcon;
 
     return (
@@ -61,7 +64,7 @@ export const Post = ({data} : propTypes) => {
                             <button onClick={handleLike} className={style.footerBtn}>
                                 <img src={icon} alt="like icon" />
                             </button>
-                            <span>{data.likes}</span>
+                            <span>{/*{data.likes} */}5</span>
                         </div>
                         <div className={style.commDiv}>
                             <Link to={`/blog/${data.id}?comment`}>
@@ -69,7 +72,7 @@ export const Post = ({data} : propTypes) => {
                                     <img src={commIcon} alt="comment icon" />
                                 </button>
                             </Link>
-                            <span>{data.comments}</span>
+                            <span>{/*{data.comments} */}5</span>
                         </div>
                     </div>
                     <div className={style.buttonDiv}>
