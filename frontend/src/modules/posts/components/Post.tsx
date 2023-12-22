@@ -12,7 +12,6 @@ import commIcon from '@/assets/comment-5-svgrepo-com.svg'
 
 import { PostModel, UserModel } from '@/models';
 import userService from '@/store/user-store/userService';
-import { useCommentStore } from '@/store';
 
 interface propTypes {
     data: PostModel
@@ -23,8 +22,6 @@ export const Post = ({data} : propTypes) => {
     const [isLikeActive, setIsLikeActive] = useState(false);
 
     const [profile, setProfile] = useState<UserModel>()
-
-    const comments = useCommentStore((state) => state.comments)
 
     const handleLike = () => {
         setIsLikeActive(!isLikeActive)

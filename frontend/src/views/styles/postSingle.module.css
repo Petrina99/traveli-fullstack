@@ -42,12 +42,24 @@
 }
 
 .headerUpper h1 {
-    width: 100%;
     color: white;
     font-size: 4.5vmin;
     overflow: hidden;
     text-overflow: ellipsis;
     font-weight: 800;
+}
+
+.headerUpper button {
+    background-color: transparent;
+    border: none;
+    border: 2px solid white;
+    color: white;
+    cursor: pointer;
+}
+
+.headerUpper button:hover {
+    background-color: white;
+    color: black;
 }
 
 .postHeader p {

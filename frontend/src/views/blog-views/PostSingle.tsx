@@ -1,4 +1,4 @@
-import { useParams, useLocation } from "react-router-dom"
+import { useParams, useLocation, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 
 import { Header, Comment, AddComment } from "@/modules"
@@ -11,20 +11,26 @@ import activeLikeIcon from '@/assets/heart-svgrepo-com-yellow.svg'
 import commIcon from '@/assets/comment-5-svgrepo-com.svg'
 import activeCommIcon from '@/assets/comment-yellow.svg'
 
-import { useCommentStore, usePostStore } from "@/store"
+import { useCommentStore, usePostStore, useUserStore } from "@/store"
 import { PostModel, UserModel } from "@/models"
+
 import userService from "@/store/user-store/userService"
+import postService from "@/store/post-store/postService"
 
 export const PostSingle = () => {
 
     const { id } = useParams()
     let loc = useLocation()
+    const navigate = useNavigate()
 
     const posts = usePostStore((state) => state.posts)
+
+    const user = useUserStore((state) => state.user)
 
     const comments = useCommentStore((state) => state.comments)
     const getAllComments = useCommentStore((state) => state.getComments)
 
+    const [isCurrent, setIsCurrent] = useState(false)
     const [profile, setProfile] = useState<UserModel>()
     const [post, setPost] = useState<PostModel>()
     const[isLikeActive, setIsLikeActive] = useState(false)
@@ -62,6 +68,10 @@ export const PostSingle = () => {
             await getAllComments(Number(id))
         }
 
+        if (profile?.id === user?.id) {
+            setIsCurrent(true)
+        }
+
         getComments()
         findPost()
         getProfile()
@@ -78,6 +88,17 @@ export const PostSingle = () => {
         setIsCommentActive(!isCommentActive)
     }
 
+    const handleDelete = async () => {
+        if (post?.id) {
+            const deletedPost = await postService.deletePost(post.id)
+            console.log(deletedPost)
+
+            if (deletedPost) {
+                navigate('/blog')
+            }
+        }
+    }
+
     return (
         <div className={style.layout}>
             <Header />
@@ -85,6 +106,11 @@ export const PostSingle = () => {
                 <div className={style.postHeader}>
                     <div className={style.headerUpper}>
                         <h1>{post?.title}</h1>
+                        {isCurrent === false ? "" : (
+                            <button onClick={handleDelete}>
+                                Delete Post
+                            </button>
+                        )}
                     </div>
                     <p>@{profile?.username}</p>
                 </div>
