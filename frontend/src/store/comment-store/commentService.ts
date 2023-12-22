@@ -6,8 +6,8 @@ const API_URL = 'http://localhost:8000/api/comments/'
 
 const createComment = async (commentData: CommentModel) => {
 
-    const { id, userid, text } = commentData
-    const response = await axios.post(API_URL + id + '/' + userid, {text})
+    const { id, authorId, text } = commentData
+    const response = await axios.post(API_URL + id + '/' + authorId, {text})
 
     return response.data
 }
@@ -18,9 +18,16 @@ const getAllComments = async (id: number) => {
     return response.data
 }
 
+const deleteComment = async (id: number) => {
+    const response = await axios.delete(API_URL + id) 
+
+    return response.data
+}
+
 const commentService = {
     createComment,
-    getAllComments
+    getAllComments,
+    deleteComment
 }
 
 export default commentService

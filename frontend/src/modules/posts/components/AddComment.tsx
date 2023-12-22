@@ -14,12 +14,10 @@ export const AddComment = ({data} : propTypes) => {
     const [commValue, setCommValue] = useState("")
 
     const user = useUserStore((state) => state.user)
-    const comments = useCommentStore((state) => state.comments)
     const addComment = useCommentStore((state) => state.addComment)
 
     const handleTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setCommValue(e.target.value);
-        console.log(commValue)
     }
 
     const handleComment = async () => {
@@ -28,14 +26,14 @@ export const AddComment = ({data} : propTypes) => {
         if (authorId) {
             let commentData = {
                 id: data,
-                userid: authorId,
+                authorId: authorId,
                 text: commValue
             }
             const response = await commentService.createComment(commentData)
             addComment(response)
         }
 
-        console.log(comments)
+        setCommValue("")
     }
 
     return (

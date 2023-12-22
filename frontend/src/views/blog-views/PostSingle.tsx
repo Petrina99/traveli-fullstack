@@ -5,13 +5,9 @@ import { Header, Comment, AddComment } from "@/modules"
 
 import style from '../styles/postSingle.module.css'
 
-import comments from '@/const/comments'
-
 import locationIcon from '@/assets/icon _Alternate Map Marker_.svg'
-
 import likeIcon from '@/assets/heart-svgrepo-com.svg'
 import activeLikeIcon from '@/assets/heart-svgrepo-com-yellow.svg'
-
 import commIcon from '@/assets/comment-5-svgrepo-com.svg'
 import activeCommIcon from '@/assets/comment-yellow.svg'
 
@@ -30,7 +26,6 @@ export const PostSingle = () => {
     const getAllComments = useCommentStore((state) => state.getComments)
 
     const [profile, setProfile] = useState<UserModel>()
-    const [comms, setComms] = useState(comments)
     const [post, setPost] = useState<PostModel>()
     const[isLikeActive, setIsLikeActive] = useState(false)
     const [isCommentActive, setIsCommentActive] = useState(false)
