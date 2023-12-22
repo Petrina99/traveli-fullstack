@@ -45,7 +45,9 @@ export const Post = ({data} : propTypes) => {
                 <div className={style.headerUpper}>
                     <h1>{data.title}</h1>
                 </div>
-               <p>@{profile?.username}</p>
+                <Link to={`/profile/${profile?.id}`}>
+                    <p>@{profile?.username}</p>
+                </Link>
             </div>
             <div className={style.content}>
                 <div className={style.location}>

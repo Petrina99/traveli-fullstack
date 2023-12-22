@@ -1,4 +1,4 @@
-import { Header, Post, Footer } from "@/modules"
+import { Header, Post } from "@/modules"
 
 import style from '../styles/blogHome.module.css'
 
@@ -32,7 +32,6 @@ export const BlogHome = () => {
             {posts.reverse().map((x) => (
                 <Post data={x} key={x.id}/>
             ))}
-            <Footer />
         </div>
     )
 }

@@ -1,6 +1,8 @@
 import { CommentModel } from '@/models'
 import style from '../styles/comment.module.css'
 
+import { Link } from 'react-router-dom'
+
 interface propType {
     data : CommentModel
 }
@@ -22,7 +24,7 @@ export const Comment = ({data}: propType) => {
     const deleteComment = useCommentStore((state) => state.deleteComment)
 
     useEffect(() => {
-        if (user?.id === data.authorId) {
+        if ((user?.id === data.authorId) || (user?.role === "ADMIN")) {
             setIsCurrentUser(true)
         }
 
@@ -48,7 +50,9 @@ export const Comment = ({data}: propType) => {
     return (
         <div className={style.comment}>
             <div className={style.commentText}>
-                <p>@{uname}</p>
+                <Link to={`/profile/${data.authorId}`}>
+                    <p>@{uname}</p>
+                </Link>
                 <p>{data?.text}</p>
                 {isCurrentUser === false ? "" : (
                     <button onClick={handleDelete}>

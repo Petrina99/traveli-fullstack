@@ -1,6 +1,8 @@
 import { useParams, useLocation, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 
+import { Link } from "react-router-dom"
+
 import { Header, Comment, AddComment } from "@/modules"
 
 import style from '../styles/postSingle.module.css'
@@ -68,7 +70,7 @@ export const PostSingle = () => {
             await getAllComments(Number(id))
         }
 
-        if (profile?.id === user?.id) {
+        if ((profile?.id === user?.id) || (user?.role === "ADMIN")) {
             setIsCurrent(true)
         }
 
@@ -112,7 +114,9 @@ export const PostSingle = () => {
                             </button>
                         )}
                     </div>
-                    <p>@{profile?.username}</p>
+                    <Link to={`/profile/${profile?.id}`}>
+                        <p>@{profile?.username}</p>
+                    </Link>
                 </div>
                 <div className={style.postContent}>
                     <div className={style.location}>
