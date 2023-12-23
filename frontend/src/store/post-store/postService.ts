@@ -11,7 +11,13 @@ const getPosts = async () => {
 }
 
 const getUserPosts = async (id: number) => {
-    const response = await axios.get(API_URL + `userpost/` + id) 
+    const response = await axios.get(API_URL + 'userpost/' + id) 
+
+    return response.data
+}
+
+const getOnePost = async (id: number) => {
+    const response = await axios.get(API_URL + id)
 
     return response.data
 }
@@ -32,7 +38,8 @@ const postService = {
     getPosts,
     getUserPosts,
     createPost,
-    deletePost
+    deletePost,
+    getOnePost
 }
 
 export default postService

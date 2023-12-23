@@ -40,20 +40,8 @@ export const PostSingle = () => {
     const [profile, setProfile] = useState<UserModel>()
     const [post, setPost] = useState<PostModel>()
     const [isCommentActive, setIsCommentActive] = useState(false)
-
-    const findPost = () => {
-        let foundPost;
-
-        for (let i = 0; i < posts.length; i++) {
-            if (posts[i].id === Number(id)) {
-                foundPost = posts[i]
-                break;
-            }
-        }
-
-        setPost(foundPost)
-    }
-
+    const [lIcon, setLIcon] = useState(likeIcon)
+    
     useEffect(() => {
         if (loc.search === "?comment") {
             setIsCommentActive(true)
@@ -69,6 +57,18 @@ export const PostSingle = () => {
             }
         }
 
+        const getPost = async () => {
+            const response = await postService.getOnePost(Number(id))
+    
+            setPost(response)
+        }
+
+        getProfile()
+        getPost()
+    }, [])
+
+    useEffect(() => {
+
         const getComments = async () => {
             await getAllComments(Number(id))
         }
@@ -76,22 +76,22 @@ export const PostSingle = () => {
         if ((profile?.id === user?.id) || (user?.role === "ADMIN")) {
             setIsCurrent(true)
         }
-
         if (post?.id) {
             getLikes(post.id)
         }
 
         if (post?.id && user?.id) {
             checkLiked(post.id, user.id)
+
+            if (isLiked) {
+                setLIcon(activeLikeIcon)
+            } else {
+                setLIcon(likeIcon)
+            }
         }
 
-        getProfile()
         getComments()
-        findPost()
-    }, [comments, likes])
-
-    const lIcon = isLiked ? activeLikeIcon : likeIcon;
-    const cIcon = isCommentActive ? activeCommIcon : commIcon;
+    }, [comments])
 
     const handleLike = () => {
         if (post?.id && user?.id) {
@@ -114,6 +114,8 @@ export const PostSingle = () => {
         }
     }
 
+    const cIcon = isCommentActive ? activeCommIcon : commIcon
+
     return (
         <div className={style.layout}>
             <Header />
@@ -134,7 +136,7 @@ export const PostSingle = () => {
                 <div className={style.postContent}>
                     <div className={style.location}>
                         <p>{post?.location} <img src={locationIcon} alt="location icon" /></p>
-                        <p className={style.date}>{post?.date}</p>
+                        <p className={style.date}>{post?.date?.slice(0, 10)}</p>
                     </div>
                     <div className={style.postText}>
                         <p>{post?.content}</p>
@@ -151,7 +153,7 @@ export const PostSingle = () => {
                                 <button className={style.footerBtn} onClick={handleComment}>
                                     <img src={cIcon} alt="comment icon" />
                                 </button>
-                                <span>{/*{post.comments} */}5</span>
+                                <span>{comments.length}</span>
                             </div>
                         </div>
                     </div>

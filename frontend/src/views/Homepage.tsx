@@ -1,8 +1,19 @@
 import style from './styles/homepage.module.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { useEffect } from 'react'
+import { useUserStore } from '@/store'
 
 export const Homepage = () => {
 
+    const user = useUserStore((state) => state.user)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (user) {
+            navigate('/blog')
+        }
+    }, [])
     return (
             <div className={style.layout}>
                 <section className={style.logoSection}>

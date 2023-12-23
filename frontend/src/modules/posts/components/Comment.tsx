@@ -32,7 +32,6 @@ export const Comment = ({data}: propType) => {
             if (data.authorId) {
                 const user = await userService.getUser(data.authorId)
 
-                console.log(user)
                 setUname(user.username)
             } 
         }

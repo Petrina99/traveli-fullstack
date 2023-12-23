@@ -11,7 +11,6 @@ import { PostModel, UserModel } from '@/models'
 import userService from '@/store/user-store/userService'
 
 import postService from '@/store/post-store/postService'
-import likeService from '@/store/like-store/likeService'
 
 export const UserProfile = () => {
 
@@ -20,6 +19,7 @@ export const UserProfile = () => {
     const [profile, setProfile] = useState<UserModel>()
 
     const [filteredPosts, setFilteredPosts] = useState<PostModel[]>()
+    const [isCurrent, setIsCurrent] = useState(false)
 
     const user = useUserStore((state) => state.user)
     const posts = usePostStore((state) => state.posts)
@@ -47,7 +47,7 @@ export const UserProfile = () => {
                 fillPosts.push(posts[i])
             }
         }
-
+        
         setFilteredPosts(fillPosts)
         console.log(response)
     }
@@ -58,10 +58,16 @@ export const UserProfile = () => {
 
             setProfile(data)
         }
-
+        
         getProfile()
         filterPosts()
     }, [])
+
+    useEffect(() => {
+        if ((profile?.id === user?.id) || (user?.role === "ADMIN")) {
+            setIsCurrent(true)
+        }
+    }, [profile])
 
     return (
         <div className={style.userContainer}>
@@ -70,17 +76,21 @@ export const UserProfile = () => {
                 <p>Email: {profile?.email}</p>
             </div>
             <div className={style.posts}>
-                <h1 className={style.postsHeading}>Posts by {user?.username}</h1>
+                <h1 className={style.postsHeading}>Posts by {profile?.username}</h1>
                 {filteredPosts?.map((x) => (
                     <div key={x.id} className={style.postItem}>
                         <Link to={`/blog/${x.id}`}>
                             <h1>{x.title}</h1>
                         </Link>
                         <p>{x.date?.slice(0, 10)}</p>
-                        <button 
+                        {isCurrent === false ? "" : (
+                            <button 
                             onClick={handleDelete}
                             value={x.id}
-                        ><strong>Delete post</strong></button>
+                            >
+                                Delete
+                            </button>
+                        )}
                     </div>
                 ))}
             </div>
