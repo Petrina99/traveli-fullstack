@@ -6,7 +6,8 @@ import { errorHandler } from './middleware/errorMiddleware'
 import { 
   commentRouter, 
   postRouter, 
-  userRouter 
+  userRouter,
+  likeRouter 
 } from './routes';
 
 dotenv.config();
@@ -24,7 +25,7 @@ app.use(cors())
 app.use('/api/posts', postRouter)
 app.use('/api/users', userRouter)
 app.use('/api/comments', commentRouter)
-
+app.use('/api/likes', likeRouter)
 app.use(errorHandler)
 
 app.listen(port, () => {
