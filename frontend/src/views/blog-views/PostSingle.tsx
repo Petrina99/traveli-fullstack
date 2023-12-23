@@ -19,11 +19,15 @@ import { PostModel, UserModel } from "@/models"
 import userService from "@/store/user-store/userService"
 import postService from "@/store/post-store/postService"
 
+import { useLike } from "@/modules"
+
 export const PostSingle = () => {
 
     const { id } = useParams()
     let loc = useLocation()
     const navigate = useNavigate()
+    
+    const { likes, getLikes, isLiked, checkLiked, toggleLike } = useLike()
 
     const posts = usePostStore((state) => state.posts)
 
@@ -35,7 +39,6 @@ export const PostSingle = () => {
     const [isCurrent, setIsCurrent] = useState(false)
     const [profile, setProfile] = useState<UserModel>()
     const [post, setPost] = useState<PostModel>()
-    const[isLikeActive, setIsLikeActive] = useState(false)
     const [isCommentActive, setIsCommentActive] = useState(false)
 
     const findPost = () => {
@@ -74,16 +77,26 @@ export const PostSingle = () => {
             setIsCurrent(true)
         }
 
+        if (post?.id) {
+            getLikes(post.id)
+        }
+
+        if (post?.id && user?.id) {
+            checkLiked(post.id, user.id)
+        }
+
         getComments()
         findPost()
         getProfile()
-    }, [comments])
+    }, [comments, likes])
 
-    const lIcon = isLikeActive ? activeLikeIcon : likeIcon;
+    const lIcon = isLiked ? activeLikeIcon : likeIcon;
     const cIcon = isCommentActive ? activeCommIcon : commIcon;
 
     const handleLike = () => {
-        setIsLikeActive(!isLikeActive)
+        if (post?.id && user?.id) {
+            toggleLike(post.id, user.id)
+        }
     }
 
     const handleComment = () => {
@@ -132,7 +145,7 @@ export const PostSingle = () => {
                                 <button className={style.footerBtn} onClick={handleLike}>
                                     <img src={lIcon} alt="like icon" />
                                 </button>
-                                <span>{/*{post.likes} */}5</span>
+                                <span>{likes.length}</span>
                             </div>
                             <div>
                                 <button className={style.footerBtn} onClick={handleComment}>
