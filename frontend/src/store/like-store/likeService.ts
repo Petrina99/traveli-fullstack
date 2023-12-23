@@ -9,8 +9,14 @@ const toggleLike = async (userid: number, id: number) => {
     return response.data
 }
 
+const getLikes = async (id:number) => {
+    const response = await axios.get(API_URL + id)
+
+    return response.data
+}
 const likeService = {
-    toggleLike
+    toggleLike,
+    getLikes
 }
 
 export default likeService

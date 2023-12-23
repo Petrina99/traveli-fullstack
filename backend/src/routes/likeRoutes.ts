@@ -1,8 +1,8 @@
 import express from 'express'
-import { toggleLike, likeCount } from '../controllers'
+import { toggleLike, getLikes } from '../controllers'
 
 export const likeRouter = express.Router()
 
 likeRouter.route('/:id/:userid').post(toggleLike)
 
-likeRouter.route('/:id').get(likeCount)
+likeRouter.route('/:id').get(getLikes)

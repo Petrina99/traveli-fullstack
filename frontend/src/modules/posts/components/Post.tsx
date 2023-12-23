@@ -10,8 +10,10 @@ import activeLikeIcon from '@/assets/heart-svgrepo-com-yellow.svg'
 
 import commIcon from '@/assets/comment-5-svgrepo-com.svg'
 
-import { PostModel, UserModel } from '@/models';
+import { LikeModel, PostModel, UserModel } from '@/models';
 import userService from '@/store/user-store/userService';
+import likeService from '@/store/like-store/likeService';
+import { useUserStore } from '@/store';
 
 interface propTypes {
     data: PostModel
@@ -20,10 +22,16 @@ interface propTypes {
 export const Post = ({data} : propTypes) => {
 
     const [isLikeActive, setIsLikeActive] = useState(false);
-
     const [profile, setProfile] = useState<UserModel>()
+    const [likes, setLikes] = useState([])
 
-    const handleLike = () => {
+    const user = useUserStore((state) => state.user)
+
+    const handleLike = async () => {
+        if (data.id && user?.id) {
+            const like = await likeService.toggleLike(user?.id, data.id)
+            console.log(like)
+        }
         setIsLikeActive(!isLikeActive)
     }
     
@@ -34,8 +42,30 @@ export const Post = ({data} : propTypes) => {
             setProfile(userData)
         }
 
+        const getLikes = async () => {
+            if (data.id) {
+                const likes = await likeService.getLikes(data.id)
+                setLikes(likes)
+            }
+            
+        }
+
+        const checkLiked = async () => {
+            if (data.id) {
+                const isLiked = likes.find((p: LikeModel) => p.userId === Number(user?.id))
+
+                if (isLiked) {
+                    setIsLikeActive(true)
+                } else {
+                    setIsLikeActive(false)
+                }   
+            }
+        }
+
         getProfile()
-    }, [])
+        getLikes()
+        checkLiked()
+    }, [likes])
     
     const icon = isLikeActive ? activeLikeIcon : likeIcon;
 
@@ -63,7 +93,7 @@ export const Post = ({data} : propTypes) => {
                             <button onClick={handleLike} className={style.footerBtn}>
                                 <img src={icon} alt="like icon" />
                             </button>
-                            <span>{/*{data.likes} */}5</span>
+                            <span>{likes.length}</span>
                         </div>
                         <div className={style.commDiv}>
                             <Link to={`/blog/${data.id}?comment`}>

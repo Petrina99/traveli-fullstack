@@ -33,10 +33,10 @@ export const toggleLike = async (req: Request, res: Response) => {
     }
 }
 
-export const likeCount = async (req: Request, res: Response) => {
+export const getLikes = async (req: Request, res: Response) => {
     const { id } = req.params
 
-    const likeCount = await prisma.like.count({
+    const likeCount = await prisma.like.findMany({
         where: {
             postId: Number(id)
         }
