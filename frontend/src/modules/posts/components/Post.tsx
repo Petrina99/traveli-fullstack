@@ -17,6 +17,7 @@ import userService from '@/store/user-store/userService';
 import { useUserStore } from '@/store';
 
 import { useLike } from './hooks';
+import commentService from '@/store/comment-store/commentService';
 
 interface propTypes {
     data: PostModel
@@ -25,6 +26,7 @@ interface propTypes {
 export const Post = ({data} : propTypes) => {
 
     const [profile, setProfile] = useState<UserModel>()
+    const [commentsCount, setCommentsCount] = useState(0)
 
     const { likes, getLikes, isLiked, checkLiked, toggleLike } = useLike()
 
@@ -43,7 +45,15 @@ export const Post = ({data} : propTypes) => {
             setProfile(userData)
         }
 
+        const getComments = async () => {
+            if (data.id) {
+                const comments = await commentService.getAllComments(data.id)
+                setCommentsCount(comments.length)
+            }
+        }
+
         getProfile()
+        getComments()
 
         if (data.id) {
             getLikes(data.id)
@@ -89,7 +99,7 @@ export const Post = ({data} : propTypes) => {
                                     <img src={commIcon} alt="comment icon" />
                                 </button>
                             </Link>
-                            <span>{/*{data.comments} */}5</span>
+                            <span>{commentsCount}</span>
                         </div>
                     </div>
                     <div className={style.buttonDiv}>

@@ -11,6 +11,7 @@ import { PostModel, UserModel } from '@/models'
 import userService from '@/store/user-store/userService'
 
 import postService from '@/store/post-store/postService'
+import likeService from '@/store/like-store/likeService'
 
 export const UserProfile = () => {
 
@@ -20,7 +21,6 @@ export const UserProfile = () => {
 
     const [filteredPosts, setFilteredPosts] = useState<PostModel[]>()
 
-    //const user = useBoundStore((state) => state.user)
     const user = useUserStore((state) => state.user)
     const posts = usePostStore((state) => state.posts)
 
@@ -76,12 +76,6 @@ export const UserProfile = () => {
                         <Link to={`/blog/${x.id}`}>
                             <h1>{x.title}</h1>
                         </Link>
-                        <span>
-                            {x.likes} likes
-                        </span>
-                        <span>
-                            {x.comments} comments
-                        </span>
                         <p>{x.date?.slice(0, 10)}</p>
                         <button 
                             onClick={handleDelete}

@@ -85,9 +85,9 @@ export const PostSingle = () => {
             checkLiked(post.id, user.id)
         }
 
+        getProfile()
         getComments()
         findPost()
-        getProfile()
     }, [comments, likes])
 
     const lIcon = isLiked ? activeLikeIcon : likeIcon;
