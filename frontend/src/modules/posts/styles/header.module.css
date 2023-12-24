@@ -34,6 +34,7 @@
     position: relative;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .input {
@@ -99,6 +100,13 @@
     color: black;
 }
 
+.suggestionDiv {
+    width: 100%;
+}
+
+.suggestionDiv option {
+    width: 100%;
+}
 @media (max-width: 770px) {
 
     .header div {

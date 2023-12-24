@@ -6,11 +6,12 @@ import searchIcon from "@/assets/icon _search engine_.svg"
 
 import { useUserStore } from '@/store'
 
+import { Autocomplete } from '.'
+
 export const Header = () => {
 
     const logoutUser = useUserStore((state) => state.logout)
     const user = useUserStore((state) => state.user)
-    //const user = useBoundStore((state) => state.user)
 
     const navigate = useNavigate()
 
@@ -26,8 +27,12 @@ export const Header = () => {
                     <h1>Traveli</h1>
                 </Link>
             </div>
+            <Autocomplete />
+            {/*
             <div className={style.searchDiv}>
                 <div className={style.inputDiv}>
+                    
+                     
                     <input 
                         type="text" 
                         name="search" 
@@ -35,12 +40,14 @@ export const Header = () => {
                         placeholder='Search users' 
                         className={style.input}
                         autoFocus
+                        autoComplete='off'
                     />
                     <button>
                         <img src={searchIcon} alt="search icon" />
                     </button>
+                    
                 </div>
-            </div>
+            </div>*/}
             <div className={style.user}>
                 <Link to={`/profile/${user?.id}`}>
                     {user?.username}

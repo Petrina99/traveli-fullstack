@@ -32,14 +32,21 @@ const getUser = async (id: number) => {
 }
 
 const logoutUser = async () => {
-    localStorage.removeItem('user');
+  localStorage.removeItem('user');
+}
+
+const getAllUsers = async () => {
+  const response = await axios.get(API_URL)
+
+  return response.data
 }
 
 const userService = {
   registerUser,
   loginUser,
   getUser,
-  logoutUser
+  logoutUser,
+  getAllUsers
 }
 
 export default userService;
