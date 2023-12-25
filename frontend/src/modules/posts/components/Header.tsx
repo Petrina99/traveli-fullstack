@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { useUserStore } from '@/store'
 
-import { Autocomplete } from '.'
+import { AutocompleteLocation, AutocompleteUsers } from '.'
 
 export const Header = () => {
 
@@ -25,7 +25,8 @@ export const Header = () => {
                     <h1>Traveli</h1>
                 </Link>
             </div>
-            <Autocomplete />
+            <AutocompleteUsers />
+            <AutocompleteLocation />
             <div className={style.user}>
                 <Link to={`/profile/${user?.id}`}>
                     {user?.username}

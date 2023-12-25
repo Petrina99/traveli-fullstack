@@ -1,28 +1,34 @@
-import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { PostModel } from "@/models"
+import { usePostStore } from "@/store"
+
+import { useEffect, useState } from "react"
 
 import style from '../styles/header.module.css'
 
-import userService from "@/store/user-store/userService"
+import { useNavigate } from "react-router-dom"
 
-import { UserModel } from "@/models"
+export const AutocompleteLocation = () => {
 
-export const Autocomplete = () => {
-    
     const navigate = useNavigate()
 
+    const posts = usePostStore((state) => state.posts)
+
     const [inputValue, setInputValue] = useState("")
-    const [allUsers, setAllUsers] = useState<UserModel[]>([])
-    const [suggestions, setSuggestions] = useState<UserModel[]>([])
+    const [allLocations, setAllLocation] = useState<string[]>([])
+    const [suggestions, setSuggestions] = useState<string[]>([])
 
     useEffect(() => {
-        const fetchUsers = async () => {
-            const response = await userService.getAllUsers()
+        const getLocations = () => {
+            let locations: string[] = [];
 
-            setAllUsers(response)
+            posts.map((post: PostModel) => {
+                locations.push(post.location)
+            })
+
+            setAllLocation(locations)
         }
 
-        fetchUsers()
+        getLocations()
     }, [])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,9 +36,9 @@ export const Autocomplete = () => {
 
         setInputValue(value)
 
-        if (allUsers) {
-            const results:UserModel[] = allUsers.filter((user) => (
-                user.username?.toLowerCase().startsWith(value.toLowerCase())
+        if (allLocations) {
+            const results: string[] = allLocations.filter((location) => (
+                location.toLowerCase().startsWith(value.toLowerCase())
             ))
 
             if (value.length > 0) {
@@ -58,32 +64,30 @@ export const Autocomplete = () => {
         setSuggestions([])
     }
 
+    
     const handleButton = () => {
 
-        const result = allUsers.find((user) => (
-            user.username === inputValue
+        const result = allLocations.find((location) => (
+            location === inputValue
         ))
         
         if (result) {
-            const id = result.id
-            navigate(`/profile/${id}`)
+            navigate(`/blog/location/${result}`)
         }
     }
-
     return (
         <>
             <div className={style.searchDiv}>
                 <div className={style.inputDiv}>
                     <input 
                         type="text" 
-                        name="search" 
-                        id="search" 
-                        placeholder='Search users' 
+                        name="loc-search" 
+                        id="loc-search" 
+                        placeholder='Search locations' 
                         className={style.input}
                         autoFocus
                         autoComplete='off'
                         onChange={handleChange}
-                        list="users"
                         value={inputValue}
                     />
                     <button onClick={handleButton} className={style.inputButton}>
@@ -93,14 +97,14 @@ export const Autocomplete = () => {
                 {suggestions.length === 0 ? "" : (
                          <div id="users" className={style.suggestionDiv}>
                             <div className={style.suggestionItemDiv}>
-                                {suggestions.map((x:UserModel) => (
+                                {suggestions.map((sugg: string) => (
                                     <p 
-                                        key={x?.id} 
+                                        key={sugg} 
                                         className={style.suggestionItem}
-                                        data-value={x.username}
+                                        data-value={sugg}
                                         onClick={handleClick}
                                     >
-                                        {x.username}
+                                        {sugg}
                                     </p>
                                 ))}
                             </div>
