@@ -2,8 +2,6 @@ import style from '../styles/header.module.css'
 
 import { Link, useNavigate } from 'react-router-dom'
 
-import searchIcon from "@/assets/icon _search engine_.svg"
-
 import { useUserStore } from '@/store'
 
 import { Autocomplete } from '.'
@@ -28,26 +26,6 @@ export const Header = () => {
                 </Link>
             </div>
             <Autocomplete />
-            {/*
-            <div className={style.searchDiv}>
-                <div className={style.inputDiv}>
-                    
-                     
-                    <input 
-                        type="text" 
-                        name="search" 
-                        id="search" 
-                        placeholder='Search users' 
-                        className={style.input}
-                        autoFocus
-                        autoComplete='off'
-                    />
-                    <button>
-                        <img src={searchIcon} alt="search icon" />
-                    </button>
-                    
-                </div>
-            </div>*/}
             <div className={style.user}>
                 <Link to={`/profile/${user?.id}`}>
                     {user?.username}

@@ -4,7 +4,7 @@ import style from '../styles/userProfile.module.css'
 
 import { useEffect, useState } from 'react'
 
-import { Link } from 'react-router-dom'
+import { PostDetails } from '.'
 
 import { usePostStore, useUserStore } from '@/store'
 import { PostModel, UserModel } from '@/models'
@@ -58,8 +58,8 @@ export const UserProfile = () => {
 
             setProfile(data)
         }
-        
-        getProfile()
+    
+        getProfile()    
         filterPosts()
     }, [])
 
@@ -78,21 +78,18 @@ export const UserProfile = () => {
             <div className={style.posts}>
                 <h1 className={style.postsHeading}>Posts by {profile?.username}</h1>
                 {filteredPosts?.map((x) => (
-                    <div key={x.id} className={style.postItem}>
-                        <Link to={`/blog/${x.id}`}>
-                            <h1>{x.title}</h1>
-                        </Link>
-                        <p>{x.date?.slice(0, 10)}</p>
-                        {isCurrent === false ? "" : (
-                            <button 
-                            onClick={handleDelete}
-                            value={x.id}
-                            >
-                                Delete
-                            </button>
-                        )}
-                    </div>
+                    <PostDetails
+                        key={x.id}
+                        data={x} 
+                        isCurrent={isCurrent} 
+                        handleDelete={handleDelete}
+                    />
                 ))}
+                {filteredPosts?.length ? "" : (
+                    <div className={style.postItem}>
+                        <p>This user doesn't have any posts</p>
+                    </div>
+                )}
             </div>
         </div>
     )
