@@ -10,8 +10,8 @@ import userService from '@/store/user-store/userService'
 export const Header = () => {
 
     const logoutUser = useUserStore((state) => state.logout)
-    const resetPosts = usePostStore((state) => state.reset)
-    const resetComments = useCommentStore((state) => state.reset)
+    const resetPosts = usePostStore((state) => state.resetPosts)
+    const resetComments = useCommentStore((state) => state.resetComments)
     const user = useUserStore((state) => state.user)
 
     const navigate = useNavigate()

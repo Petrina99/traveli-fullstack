@@ -2,16 +2,14 @@ import style from './styles/homepage.module.css'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { useEffect } from 'react'
-import { usePostStore, useUserStore } from '@/store'
+import { useUserStore } from '@/store'
 
 export const Homepage = () => {
 
     const user = useUserStore((state) => state.user)
-    const posts = usePostStore((state) => state.posts)
     const navigate = useNavigate()
 
     useEffect(() => {
-        console.log(posts)
         if (user) {
             navigate('/blog')
         }

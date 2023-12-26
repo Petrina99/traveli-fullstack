@@ -8,7 +8,7 @@ export interface PostState {
     addPosts: (fetchedPosts: PostModel[]) => void;
     createPost: (post: PostModel) => void;
     deletePost: (id: number) => void;
-    reset: () => void;
+    resetPosts: () => void;
 }
 
 export const usePostStore = create<PostState>()(
@@ -27,7 +27,7 @@ export const usePostStore = create<PostState>()(
                         return post.id !== id
                     })}))
                 },
-                reset: () => {
+                resetPosts: () => {
                     set(() => ({ posts: []}))
                 }
             }),

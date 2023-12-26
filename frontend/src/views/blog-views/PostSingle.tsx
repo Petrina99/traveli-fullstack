@@ -20,10 +20,12 @@ import userService from "@/store/user-store/userService"
 import postService from "@/store/post-store/postService"
 
 import { useLike } from "@/modules"
+import commentService from "@/store/comment-store/commentService"
 
 export const PostSingle = () => {
 
     const { id } = useParams()
+
     let loc = useLocation()
     const navigate = useNavigate()
     
@@ -34,7 +36,7 @@ export const PostSingle = () => {
     const user = useUserStore((state) => state.user)
 
     const comments = useCommentStore((state) => state.comments)
-    const getAllComments = useCommentStore((state) => state.getComments)
+    const addComments = useCommentStore((state) => state.addComments)
 
     const [isCurrent, setIsCurrent] = useState(false)
     const [profile, setProfile] = useState<UserModel>()
@@ -70,7 +72,8 @@ export const PostSingle = () => {
     useEffect(() => {
 
         const getComments = async () => {
-            await getAllComments(Number(id))
+            const allComms = await commentService.getAllComments(Number(id))
+            addComments(allComms)
         }
 
         if ((profile?.id === user?.id) || (user?.role === "ADMIN")) {

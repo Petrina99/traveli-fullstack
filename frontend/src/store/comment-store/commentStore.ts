@@ -5,22 +5,19 @@ import { CommentModel } from '@/models'
 
 export interface CommentState {
     comments: CommentModel[];
-    getComments: (id: number) => void;
+    addComments: (comms: CommentModel[]) => void;
     addComment: (comm: CommentModel) => void;
     deleteComment: (id: number) => void;
-    reset: () => void;
+    resetComments: () => void;
 }
-
-import commentService from "./commentService";
 
 export const useCommentStore = create<CommentState>()(
     devtools(
         persist(
             (set) => ({
                 comments: [],
-                getComments: async (id) => {
-                    const fetchedComments = await commentService.getAllComments(id)
-                    set(() => ({ comments: fetchedComments }))
+                addComments: (comms) => {
+                    set(() => ({ comments: comms }))
                 },
                 addComment: (comm) => {
                     set((state) => ({ comments: [...state.comments, comm] }))
@@ -30,7 +27,7 @@ export const useCommentStore = create<CommentState>()(
                         return comm.id !== id
                     })}))
                 },
-                reset: () => {
+                resetComments: () => {
                     set(() => ({ comments: []}))
                 }
             }),
