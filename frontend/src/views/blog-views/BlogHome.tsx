@@ -7,15 +7,17 @@ import { useEffect } from "react"
 
 import { Link } from 'react-router-dom'
 
+import postService from "@/store/post-store/postService"
+
 export const BlogHome = () => {
 
     const posts = usePostStore((state) => state.posts)
-    const getPosts = usePostStore((state) => state.getPosts)
+    const addPosts = usePostStore((state) => state.addPosts)
 
-
-    useEffect(() => { 
+    useEffect(() => {  
         const fetchPosts = async () => {
-            await getPosts()
+            const fetchedPosts = await postService.getPosts()
+            addPosts(fetchedPosts)
         }
 
         fetchPosts()

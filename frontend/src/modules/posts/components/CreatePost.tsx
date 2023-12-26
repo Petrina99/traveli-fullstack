@@ -1,7 +1,7 @@
 import style from '../styles/createPost.module.css'
 import { useForm } from 'react-hook-form'
 
-import { useUserStore } from '@/store'
+import { usePostStore, useUserStore } from '@/store'
 
 import { useNavigate } from 'react-router-dom'
 
@@ -16,18 +16,19 @@ type FormValues = {
 export const CreatePost = () => {
 
     const navigate = useNavigate()
+
     const user = useUserStore((state) => state.user)
+    const createPost = usePostStore((state) => state.createPost)
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
-    //console.log(posts)
-    const onSubmit = (data: FormValues) => {
+    const onSubmit = async (data: FormValues) => {
 
-        // trebamo jos authorId
         const { title, location, content } = data
 
         let authorId = user?.id
-        if (authorId) {
-            const newPost = postService.createPost({ title, location, content, authorId })
+        if (authorId && title && location && content) {
+            const newPost = await postService.createPost({ title, location, content, authorId })
+            createPost(newPost)
             navigate('/blog')
         }
     }
