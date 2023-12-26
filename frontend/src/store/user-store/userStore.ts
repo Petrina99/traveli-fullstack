@@ -3,12 +3,10 @@ import { devtools, persist } from "zustand/middleware";
 
 import { UserModel } from '@/models'
 
-import userService from "./userService";
-
 export interface UserState {
     user: UserModel | null;
     logout: () => void;
-    addUser: (userData: UserModel) => boolean;
+    addUser: (userData: UserModel) => void;
 }
 
 export const useUserStore = create<UserState>()(
@@ -16,18 +14,11 @@ export const useUserStore = create<UserState>()(
         persist(
             (set) => ({
                 user: null,
-                logout: async () => {
-                    await userService.logoutUser()
+                logout: () => {
                     set(() => ({ user: null }))
                 },
                 addUser: (userData) => {
-                    if ((userData !== undefined) || (userData !== null)) {
-                        set(() => ({ user: userData }))
-                        return true
-                    } else {
-                        set(() => ({ user: null }))
-                        return false
-                    }
+                    set(() => ({ user: userData }))
                 },
             }),
             {

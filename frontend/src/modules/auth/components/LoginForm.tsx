@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form'
 
-import { useAuth } from './useAuth';
-
 type FormValues = {
     email: string;
     password: string;
 }
+
+import { useState } from 'react';
 
 const validation = {
     email:
@@ -17,29 +17,32 @@ import style from './styles/signupForm.module.css'
 
 import { useUserStore } from '@/store';
 
+import userService from '@/store/user-store/userService';
+
 export const LoginForm = () => {
 
-    const { fetchLogin } = useAuth();
-
-    //const addUser = useBoundStore((state) => state.addUser)
     const addUser = useUserStore((state) => state.addUser)
     const navigate = useNavigate()
+
+    const [message, setMessage] = useState("")
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
     const onSubmit = async (data: FormValues) => {
         
-        const user = await fetchLogin(data)
+        const userLogin = await userService.loginUser(data)
 
-        const isAdded = addUser(user)
-
-        if (isAdded) {
+        if (userLogin === "error") {
+            setMessage("User with those credentials doesn't exist")
+        } else {
+            setMessage("")
+            addUser(userLogin)
             navigate('/blog')
         }
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
+        <form onSubmit={handleSubmit(async (data: FormValues) => await onSubmit(data))} className={style.form}>
             <h1 className={style.formHeading}>Login</h1>
             <div className={style.formInputDiv}>
                 <input 
@@ -48,6 +51,7 @@ export const LoginForm = () => {
                     placeholder="Email" 
                     id="email-signup"
                     {...register('email', {
+                        onChange: () => { setMessage("")},
                         required: 'Email field is required.',
                         pattern: {
                             value: validation.email,
@@ -66,6 +70,7 @@ export const LoginForm = () => {
                     placeholder="Password" 
                     id="password-signup"
                     {...register('password', {
+                        onChange: () => { setMessage("")},
                         required: 'Password field is required.',
                     })} 
                 />
@@ -73,6 +78,11 @@ export const LoginForm = () => {
                     <p className={style.error}>{errors.password.message}</p>
                 )}
             </div>
+            {message && (
+                <div className={style.errorDiv}>
+                    <p className={style.error}>{message}</p>
+                </div>
+            )}
             <div className={style.formSubmit}>
                 <input 
                     type='submit' 

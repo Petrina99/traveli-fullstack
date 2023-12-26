@@ -6,6 +6,7 @@ import { useUserStore } from '@/store'
 
 import { AutocompleteLocation, AutocompleteUsers } from '.'
 
+import userService from '@/store/user-store/userService'
 export const Header = () => {
 
     const logoutUser = useUserStore((state) => state.logout)
@@ -14,6 +15,7 @@ export const Header = () => {
     const navigate = useNavigate()
 
     const handleLogout = () => {
+        userService.logoutUser()
         logoutUser()
         navigate('/')
     }

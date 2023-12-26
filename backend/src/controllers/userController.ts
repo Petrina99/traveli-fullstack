@@ -91,15 +91,8 @@ export const loginUser = async (req: Request, res: Response) => {
     })
     
     if (loggedUser && (await bcrypt.compare(password, loggedUser.password))) {
-        res.json({
-            user: loggedUser,
-            id: loggedUser.id,
-            token: generateJWT(loggedUser.id),
-            status: true
-        })
+        res.json(loggedUser)
     } else {
-        res.json({
-            status: false
-        })
+        res.json("error")
     }
 }

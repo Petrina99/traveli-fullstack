@@ -24,7 +24,6 @@ export const SignupForm = () => {
 
     const navigate = useNavigate()
 
-    //const addUser = useBoundStore((state) => state.addUser)
     const addUser = useUserStore((state) => state.addUser)
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
