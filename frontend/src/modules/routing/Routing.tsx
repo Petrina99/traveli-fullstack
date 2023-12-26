@@ -8,7 +8,8 @@ import {
   BlogCreate,
   PostSingle,
   Profile,
-  BlogLocations
+  BlogLocations,
+  ErrorSearchPage
 } from "@/views"
 
 export const Routing = () => {
@@ -22,6 +23,7 @@ export const Routing = () => {
         <Route path="/blog/create" element={<BlogCreate /> } />
         <Route path="/blog/:id" element={<PostSingle />} />
         <Route path="/profile/:id" element={<Profile />} />
+        <Route path="blog/error404/:type" element={<ErrorSearchPage />} />
     </Routes>
   )
 }

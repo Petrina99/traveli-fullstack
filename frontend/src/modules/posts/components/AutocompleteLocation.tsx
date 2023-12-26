@@ -64,15 +64,30 @@ export const AutocompleteLocation = () => {
         setSuggestions([])
     }
 
-    
+    const findLocation = () => {
+        const result = allLocations.find(
+            (location) => {
+                if (inputValue.toLowerCase() === location.split(",")[0].toLowerCase()) {
+                    return location
+                }
+
+                if (inputValue.toLowerCase() === location.toLowerCase()) {
+                    return location
+                }
+            }
+        )
+
+        return result
+    }
+
     const handleButton = () => {
 
-        const result = allLocations.find((location) => (
-            location === inputValue
-        ))
+        const result = findLocation()
         
         if (result) {
             navigate(`/blog/location/${result}`)
+        } else {
+            navigate('/blog/error404/location')
         }
     }
     return (

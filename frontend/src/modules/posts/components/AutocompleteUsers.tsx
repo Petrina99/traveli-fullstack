@@ -67,6 +67,8 @@ export const AutocompleteUsers = () => {
         if (result) {
             const id = result.id
             navigate(`/profile/${id}`)
+        } else {
+            navigate('/blog/error404/user')
         }
     }
 
