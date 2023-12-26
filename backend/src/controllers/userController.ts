@@ -48,13 +48,11 @@ export const createUser = async (req: Request, res: Response) => {
     })
   
     if (emailExists) {
-        res.status(400)
-        throw new Error('User with that email already exists')
+        return res.json("error email")
     }
 
     if (usernameExists) {
-        res.status(400)
-        throw new Error('User with that username already exists')
+        return res.json("error username")
     }
 
     const salt = await bcrypt.genSalt(10)
@@ -70,14 +68,9 @@ export const createUser = async (req: Request, res: Response) => {
     })
 
     if (createdUser) {
-        res.json({
-            user: createdUser,
-            id: createdUser.id,
-            token: generateJWT(createdUser.id)
-        })
+        res.json(createdUser)
     } else {
-        res.status(400)
-        throw new Error('Invalid user data')
+        res.json("error create")
     }
 }
 

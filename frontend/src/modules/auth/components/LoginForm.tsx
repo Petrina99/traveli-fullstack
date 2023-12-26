@@ -42,7 +42,10 @@ export const LoginForm = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit(async (data: FormValues) => await onSubmit(data))} className={style.form}>
+        <form 
+            onSubmit={handleSubmit(async (data: FormValues) => await onSubmit(data))} 
+            className={style.form}
+        >
             <h1 className={style.formHeading}>Login</h1>
             <div className={style.formInputDiv}>
                 <input 
