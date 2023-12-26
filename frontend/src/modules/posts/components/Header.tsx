@@ -2,7 +2,7 @@ import style from '../styles/header.module.css'
 
 import { Link, useNavigate } from 'react-router-dom'
 
-import { useUserStore } from '@/store'
+import { useCommentStore, usePostStore, useUserStore } from '@/store'
 
 import { AutocompleteLocation, AutocompleteUsers } from '.'
 
@@ -10,6 +10,8 @@ import userService from '@/store/user-store/userService'
 export const Header = () => {
 
     const logoutUser = useUserStore((state) => state.logout)
+    const resetPosts = usePostStore((state) => state.reset)
+    const resetComments = useCommentStore((state) => state.reset)
     const user = useUserStore((state) => state.user)
 
     const navigate = useNavigate()
@@ -17,6 +19,8 @@ export const Header = () => {
     const handleLogout = () => {
         userService.logoutUser()
         logoutUser()
+        resetPosts()
+        resetComments()
         navigate('/')
     }
 

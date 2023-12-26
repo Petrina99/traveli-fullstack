@@ -2,18 +2,21 @@ import style from './styles/homepage.module.css'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { useEffect } from 'react'
-import { useUserStore } from '@/store'
+import { usePostStore, useUserStore } from '@/store'
 
 export const Homepage = () => {
 
     const user = useUserStore((state) => state.user)
+    const posts = usePostStore((state) => state.posts)
     const navigate = useNavigate()
 
     useEffect(() => {
+        console.log(posts)
         if (user) {
             navigate('/blog')
         }
     }, [])
+
     return (
             <div className={style.layout}>
                 <section className={style.logoSection}>

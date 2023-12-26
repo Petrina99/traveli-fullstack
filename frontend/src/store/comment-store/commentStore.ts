@@ -8,6 +8,7 @@ export interface CommentState {
     getComments: (id: number) => void;
     addComment: (comm: CommentModel) => void;
     deleteComment: (id: number) => void;
+    reset: () => void;
 }
 
 import commentService from "./commentService";
@@ -28,6 +29,9 @@ export const useCommentStore = create<CommentState>()(
                     set((state) => ({ comments: state.comments.filter((comm) => {
                         return comm.id !== id
                     })}))
+                },
+                reset: () => {
+                    set(() => ({ comments: []}))
                 }
             }),
             {

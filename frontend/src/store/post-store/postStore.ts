@@ -2,7 +2,6 @@ import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
 import { PostModel } from '@/models'
-import postService from "./postService"
 
 export interface PostState {
     posts: PostModel[];
@@ -29,7 +28,7 @@ export const usePostStore = create<PostState>()(
                     })}))
                 },
                 reset: () => {
-                    set(() => ({ posts: [] }))
+                    set(() => ({ posts: []}))
                 }
             }),
             {
