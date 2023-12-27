@@ -71,7 +71,9 @@ export const Post = ({data} : propTypes) => {
         <div className={style.layout}>
             <div className={style.header}>
                 <div className={style.headerUpper}>
-                    <h1>{data.title}</h1>
+                    <Link to={`/blog/${data.id}`}>
+                        {data.title}
+                    </Link>
                 </div>
                 <Link to={`/profile/${profile?.id}`}>
                     <p>@{profile?.username}</p>
@@ -101,11 +103,6 @@ export const Post = ({data} : propTypes) => {
                             </Link>
                             <span>{commentsCount}</span>
                         </div>
-                    </div>
-                    <div className={style.buttonDiv}>
-                        <Link to={`/blog/${data.id}`}>
-                            <button>Expand article</button>
-                        </Link>
                     </div>
                 </div>
             </div>

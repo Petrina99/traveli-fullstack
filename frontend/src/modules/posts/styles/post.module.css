@@ -32,13 +32,18 @@
     padding: 1em 2em 0 2em;
 }
 
-.headerUpper h1 {
+.headerUpper a {
     width: 100%;
     color: white;
     font-size: 4.5vmin;
     overflow: hidden;
     text-overflow: ellipsis;
     font-weight: 800;
+    text-decoration: none;
+}
+
+.headerUpper a:hover {
+    text-decoration: underline;
 }
 
 .header p {
