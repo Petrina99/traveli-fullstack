@@ -1,25 +1,25 @@
-import { PostModel } from "@/models"
+import { PostModel, UserModel } from "@/models";
 
-import { Link } from "react-router-dom"
+import { useEffect, useState } from "react";
+import { useLike } from "@/modules";
+
+import { Link } from 'react-router-dom'
 
 interface propTypes {
-    data: PostModel,
-    isCurrent: boolean,
+    data: PostModel;
     handleDelete: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 import commentService from "@/store/comment-store/commentService";
+import userService from "@/store/user-store/userService";
 
-import { useState, useEffect } from "react";
+import style from '../styles/postDetails.module.css'
 
-import style from '../styles/userProfile.module.css'
+export const OnePostDetails: React.FC<propTypes> = (props) => {
 
-import { useLike } from "@/modules";
-
-export const PostDetails: React.FC<propTypes> = (props) => {
-
-    const { data, isCurrent, handleDelete } = props
+    const { data, handleDelete } = props;
     const [commentsCount, setCommentsCount] = useState()
+    const [profile, setProfile] = useState<UserModel>()
 
     const { likes, getLikes } = useLike()
 
@@ -31,29 +31,37 @@ export const PostDetails: React.FC<propTypes> = (props) => {
             }
         }
 
+        const fetchUser = async () => {
+            if (data.authorId) {
+                const response: UserModel = await userService.getUser(data.authorId)
+
+                setProfile(response)
+            }
+        }
+
         if (data.id) {
             getLikes(data.id)
         }
 
+        fetchUser()
         getComments()
     }, [])
 
     return (
         <div className={style.postItem}>
+            <p>Username: {profile?.username}</p>
             <Link to={`/blog/${data.id}`}>
                 <h1>{data.title}</h1>
             </Link>
             <p>{data.date?.slice(0, 10)}</p>
             <p>{likes.length} Likes</p>
             <p>{commentsCount} Comments</p>
-            {isCurrent === false ? "" : (
-                <button 
+            <button 
                 value={data.id}
                 onClick={handleDelete}
-                >
-                    Delete post
-                </button>
-            )}
+            >
+                Delete post
+            </button>
         </div>
     )
 }

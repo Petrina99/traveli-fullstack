@@ -67,23 +67,24 @@
     font-size: 3.5vmin;
 }
 
-.postItem span {
-    color: white;
-    font-size: 16px;
-}
-
-.postItem span:first-of-type {
-    padding-right: 10px;
-    border-right: 1px solid white;
-}
-
-.postItem span:last-of-type {
-    padding-left: 10px;
-}
-
 .postItem p {
     color: white;
     font-size: 16px;
+}
+
+.postItem button {
+    border: none;
+    background: none;
+    border: 1px solid white;
+    color: white;
+    margin-top: 10px;
+    padding: 1em;
+    cursor: pointer;
+}
+
+.postItem button:hover {
+    background: red;
+    color: white;
 }
 
 @media (max-width: 450px) {

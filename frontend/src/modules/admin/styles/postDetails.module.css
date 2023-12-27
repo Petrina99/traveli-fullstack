@@ -1,0 +1,64 @@
+.layout {
+    width: 60%;
+    padding: 1em;
+    background-color: #323131;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.postInfo {
+    margin-bottom: 20px;
+    color: white;
+    font-size: 16px;
+}
+
+.postItem {
+    width: 100%;
+    padding: 1em 0;
+    border-bottom: 1px solid white;
+    border-top: 1px solid white;
+    margin-bottom: 10px;
+}
+
+.postItem a {
+    text-decoration: none;
+}
+
+.postItem h1 {
+    color: white;
+    font-size: 3.5vmin;
+}
+
+.postItem a:hover {
+    text-decoration: underline white;
+}
+
+.postItem p {
+    color: white;
+    font-size: 16px;
+}
+
+.postItem button {
+    border: none;
+    background: none;
+    border: 1px solid white;
+    color: white;
+    margin-top: 10px;
+    padding: 1em;
+    cursor: pointer;
+}
+
+.postItem button:hover {
+    background: red;
+    color: white;
+}
+
+@media (max-width: 770px) {
+    .layout {
+        width: 90%;
+    }
+
+    .postItem h1 {
+        font-size: 5vmin;
+    }
+}

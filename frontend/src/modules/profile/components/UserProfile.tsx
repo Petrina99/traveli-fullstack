@@ -23,6 +23,7 @@ export const UserProfile = () => {
 
     const user = useUserStore((state) => state.user)
     const posts = usePostStore((state) => state.posts)
+    const deletePost = usePostStore((state) => state.deletePost)
 
     const filterPosts = () => {
         let fillPosts = [];
@@ -33,14 +34,15 @@ export const UserProfile = () => {
             }
         }
 
-        setFilteredPosts(fillPosts)
+        setFilteredPosts(fillPosts.reverse())
     }
 
     const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
         const { value } = e.currentTarget;
 
         const response = await postService.deletePost(Number(value))
-
+        deletePost(response)
+        
         let fillPosts = [];
         for (let i = 0; i < posts.length; i++) {
             if (posts[i].id !== response.id && posts[i].authorId === Number(id)) {
@@ -48,8 +50,7 @@ export const UserProfile = () => {
             }
         }
         
-        setFilteredPosts(fillPosts)
-        console.log(response)
+        setFilteredPosts(fillPosts.reverse())
     }
 
     useEffect(() => {

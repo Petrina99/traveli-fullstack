@@ -1,0 +1,82 @@
+.layout {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-bottom: 50px;
+}
+
+.heading {
+    margin-top: 30px;
+    width: 60%;
+}
+
+.heading h1 {
+    color: white;
+    text-align: center;
+}
+
+.buttonDiv {
+    width: 60%;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 30px;
+    background-color: #323131;
+    border-radius: 10px;
+    padding: 1em;
+}
+
+.buttonLayout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px black;
+}
+
+.buttonLayout button {
+    border: none;
+    background: #272727;
+    color: white;
+    padding: 1em;
+    cursor: pointer;
+}
+
+.buttonLayout button:hover {
+    background: black;
+    color: white;
+}
+
+.buttonLayout button:focus {
+    background-color: #C5E117;
+    color: black;
+}
+.buttonLayout button:first-of-type {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.buttonLayout button:nth-of-type(2) {
+    border-right: 1px solid white;
+    border-left: 1px solid white;
+}
+
+.buttonLayout button:last-of-type {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+@media (max-width: 770px) {
+
+    .heading {
+        width: 90%;
+    }
+
+    .buttonDiv {
+        width: 90%;
+    }
+    
+    .buttonDiv {
+        justify-content: center;
+    }
+    
+}

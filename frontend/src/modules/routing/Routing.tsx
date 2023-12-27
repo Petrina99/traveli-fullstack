@@ -9,7 +9,8 @@ import {
   PostSingle,
   Profile,
   BlogLocations,
-  ErrorSearchPage
+  ErrorSearchPage,
+  AdminDashboard
 } from "@/views"
 
 export const Routing = () => {
@@ -24,6 +25,7 @@ export const Routing = () => {
         <Route path="/blog/:id" element={<PostSingle />} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="blog/error404/:type" element={<ErrorSearchPage />} />
+        <Route path="/admin" element={<AdminDashboard />} />
     </Routes>
   )
 }
