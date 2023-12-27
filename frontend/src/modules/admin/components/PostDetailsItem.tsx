@@ -3,7 +3,7 @@ import { PostModel, UserModel } from "@/models";
 import { useEffect, useState } from "react";
 import { useLike } from "@/modules";
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 interface propTypes {
     data: PostModel;
@@ -16,6 +16,8 @@ import userService from "@/store/user-store/userService";
 import style from '../styles/postDetails.module.css'
 
 export const PostDetailsItem: React.FC<propTypes> = (props) => {
+
+    const navigate = useNavigate()
 
     const { data, handleDelete } = props;
     const [commentsCount, setCommentsCount] = useState()
@@ -47,6 +49,10 @@ export const PostDetailsItem: React.FC<propTypes> = (props) => {
         getComments()
     }, [])
 
+    const handleEdit = () => {
+        navigate(`/blog/edit/${data.id}`)
+    }
+
     return (
         <div className={style.postItem}>
             <p>Username: {profile?.username}</p>
@@ -61,6 +67,11 @@ export const PostDetailsItem: React.FC<propTypes> = (props) => {
                 onClick={handleDelete}
             >
                 Delete post
+            </button>
+            <button
+                onClick={handleEdit}
+            >
+                Edit post
             </button>
         </div>
     )

@@ -1,6 +1,6 @@
 import { PostModel } from "@/models"
 
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 interface propTypes {
     data: PostModel,
@@ -17,6 +17,8 @@ import style from '../styles/userProfile.module.css'
 import { useLike } from "@/modules";
 
 export const PostDetails: React.FC<propTypes> = (props) => {
+
+    const navigate = useNavigate()
 
     const { data, isCurrent, handleDelete } = props
     const [commentsCount, setCommentsCount] = useState()
@@ -38,6 +40,10 @@ export const PostDetails: React.FC<propTypes> = (props) => {
         getComments()
     }, [])
 
+    const handleEdit = () => {
+        navigate(`/blog/edit/${data.id}`)
+    }
+
     return (
         <div className={style.postItem}>
             <Link to={`/blog/${data.id}`}>
@@ -47,12 +53,17 @@ export const PostDetails: React.FC<propTypes> = (props) => {
             <p>{likes.length} Likes</p>
             <p>{commentsCount} Comments</p>
             {isCurrent === false ? "" : (
-                <button 
-                value={data.id}
-                onClick={handleDelete}
-                >
-                    Delete post
-                </button>
+                <div className={style.postItemButtons}>
+                    <button 
+                        value={data.id}
+                        onClick={handleDelete}
+                    >
+                        Delete post
+                    </button>
+                    <button onClick={handleEdit}>
+                        Edit post
+                    </button>
+                </div>
             )}
         </div>
     )

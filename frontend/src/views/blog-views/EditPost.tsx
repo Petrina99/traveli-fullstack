@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { usePostStore } from "@/store"
+import { usePostStore, useUserStore } from "@/store"
 
 import { PostModel } from "@/models"
 
@@ -14,6 +14,7 @@ export const EditPost = () => {
     const { id } = useParams()
     const navigate = useNavigate()
 
+    const user = useUserStore((state) => state.user)
     const posts = usePostStore((state) => state.posts)
     const editPost = usePostStore((state) => state.editPost)
 
@@ -36,7 +37,18 @@ export const EditPost = () => {
             }
         }
 
+        const checkIsAllowed = () => {
+            if (user) {
+                if (user.role !== "ADMIN") {
+                    if (user.id !== post?.authorId) {
+                        navigate('/blog')
+                    }
+                }
+            }
+        }
+
         getPost()
+        checkIsAllowed()
     }, [])
 
     const handleSubmit = async () => {

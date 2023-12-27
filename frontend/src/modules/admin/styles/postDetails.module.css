@@ -54,6 +54,10 @@
     border: 1px solid transparent;
 }
 
+.postItem button:last-of-type:hover {
+    background: green;
+}
+
 @media (max-width: 770px) {
     .layout {
         width: 90%;

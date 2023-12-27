@@ -89,7 +89,7 @@
     font-size: 16px;
 }
 
-.postItem button {
+.postItemButtons button {
     border: none;
     background: none;
     border: 1px solid white;
@@ -99,9 +99,14 @@
     cursor: pointer;
 }
 
-.postItem button:hover {
+.postItemButtons button:hover {
     background: red;
     color: white;
+    border: 1px solid transparent;
+}
+
+.postItemButtons button:last-of-type:hover {
+    background: green;
 }
 
 @media (max-width: 450px) {
