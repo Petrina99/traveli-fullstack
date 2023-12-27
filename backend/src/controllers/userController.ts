@@ -89,3 +89,15 @@ export const loginUser = async (req: Request, res: Response) => {
         res.json("error")
     }
 }
+
+export const deleteUser = async (req: Request, res: Response) => {
+    const { id } = req.params
+
+    const deletedUser = await prisma.user.delete({
+        where: {
+            id: Number(id)
+        }
+    })
+
+    res.json(deletedUser)
+}

@@ -1,4 +1,67 @@
 .layout {
     width: 60%;
     margin-top: 30px;
+    border-radius: 10px;
+    padding: 1em;
+    border: 2px solid #323131;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.userHeader {
+    width: 100%;
+    padding: 1em;
+    background-color:#323131;
+    border-radius: 10px;
+    color: white;
+}
+
+.itemLayout {
+    width: 100%;
+    padding: 1em;
+    border-radius: 10px;
+    background-color: #323131;
+    margin-top: 10px;
+    display: flex;
+}
+
+.itemInfo {
+    width: 50%;
+    color: white;
+}
+
+.itemInfo a {
+    text-decoration: none;
+    color: yellow;
+}
+
+.itemDelete {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.deleteButton {
+    background: none;
+    border: 1px solid white;
+    color: white;
+    padding: 1em;
+    cursor: pointer;
+}
+
+.deleteButton:hover {
+    background: red;
+    border: 1px solid transparent;
+}
+
+.itemInfo a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 770px) {
+    .layout {
+        width: 90%;
+    }
 }

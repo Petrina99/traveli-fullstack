@@ -18,6 +18,12 @@ const getAllComments = async (id: number) => {
     return response.data
 }
 
+const getAllUserComments = async (id: number) => {
+    const response = await axios.get(API_URL + 'usercount/' + id)
+
+    return response.data
+}
+
 const deleteComment = async (id: number) => {
     const response = await axios.delete(API_URL + id) 
 
@@ -27,7 +33,8 @@ const deleteComment = async (id: number) => {
 const commentService = {
     createComment,
     getAllComments,
-    deleteComment
+    deleteComment,
+    getAllUserComments
 }
 
 export default commentService

@@ -40,12 +40,19 @@ const getAllUsers = async () => {
   return response.data
 }
 
+const deleteUser = async (id: number) => {
+  const response = await axios.delete(API_URL + 'delete/' + id)
+
+  return response.data
+}
+
 const userService = {
   registerUser,
   loginUser,
   getUser,
   logoutUser,
-  getAllUsers
+  getAllUsers,
+  deleteUser
 }
 
 export default userService;

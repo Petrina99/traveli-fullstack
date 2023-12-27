@@ -15,6 +15,18 @@ export const getComments = async (req: Request, res: Response) => {
     res.json(comments)
 }
 
+export const getUserComments = async (req: Request, res: Response) => {
+  const { id } = req.params
+
+  const comments = await prisma.comment.findMany({
+    where: {
+      authorId: Number(id)
+    }
+  })
+
+  res.json(comments)
+}
+
 export const createComment = async (req: Request, res: Response) => {
     const { id, userid } = req.params 
   
