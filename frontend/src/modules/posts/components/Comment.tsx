@@ -54,7 +54,7 @@ export const Comment = ({data}: propType) => {
                 </Link>
                 <p>{data?.text}</p>
                 {isCurrentUser === false ? "" : (
-                    <button onClick={handleDelete}>
+                    <button onClick={handleDelete} className={style.deleteComment}>
                         Delete
                     </button>
                 )}

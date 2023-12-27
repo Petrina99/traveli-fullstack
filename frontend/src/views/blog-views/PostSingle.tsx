@@ -162,15 +162,15 @@ export const PostSingle = () => {
                     </div>
                 </div>
                 {isCommentActive === false ? "" :
+                    <AddComment data={Number(id)}/>
+                }
+                {isCommentActive === false ? "" :
                     <div className={style.postComments}>
                         <h1>Comments</h1>
                         {comments.map((x) => (
                             <Comment data={x} key={x.id} />
                         ))}
                     </div>
-                }
-                {isCommentActive === false ? "" :
-                    <AddComment data={Number(id)}/>
                 }
             </div>
         </div>

@@ -11,6 +11,7 @@ import { PostModel, UserModel } from '@/models'
 import userService from '@/store/user-store/userService'
 
 import postService from '@/store/post-store/postService'
+import { Link } from 'react-router-dom'
 
 export const UserProfile = () => {
 
@@ -75,6 +76,13 @@ export const UserProfile = () => {
             <div className={style.containerHeader}>
                 <h1>Username: {profile?.username}</h1>
                 <p>Email: {profile?.email}</p>
+                {user?.role === "ADMIN" ? (
+                    <Link to='/admin'>
+                        <button>
+                            Open dashboard
+                        </button>
+                    </Link>
+                ) : ""}
             </div>
             <div className={style.posts}>
                 <h1 className={style.postsHeading}>Posts by {profile?.username}</h1>

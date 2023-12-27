@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 
 import style from '../styles/adminDashboard.module.css'
 
-import { Header, CreatePost, AllPostsDetails } from "@/modules"
+import { Header, CreatePost, AllPostsDetails, UserDetails } from "@/modules"
 import { useEffect } from "react"
 
 const choices = [{
@@ -24,7 +24,7 @@ export const AdminDashboard = () => {
 
     const navigate = useNavigate()
 
-    const [currentChoice, setCurrentChoice] = useState(1)
+    const [currentChoice, setCurrentChoice] = useState(2)
 
     const user = useUserStore((state) => state.user)
 
@@ -60,6 +60,7 @@ export const AdminDashboard = () => {
             </div>
             {currentChoice === 0 ? <CreatePost /> : ""}
             {currentChoice === 1 ? <AllPostsDetails /> : ""}
+            {currentChoice === 2 ? <UserDetails /> : ""}
         </div>
     )
 }

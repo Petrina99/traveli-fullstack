@@ -1,3 +1,5 @@
 export * from './ChoiceButton'
 export * from './AllPostsDetails'
-export * from './OnePostDetails'
+export * from './PostDetailsItem'
+export * from './UserDetails'
+export * from './UserDetailsItem'

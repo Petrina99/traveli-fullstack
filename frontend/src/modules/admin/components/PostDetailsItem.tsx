@@ -15,7 +15,7 @@ import userService from "@/store/user-store/userService";
 
 import style from '../styles/postDetails.module.css'
 
-export const OnePostDetails: React.FC<propTypes> = (props) => {
+export const PostDetailsItem: React.FC<propTypes> = (props) => {
 
     const { data, handleDelete } = props;
     const [commentsCount, setCommentsCount] = useState()

@@ -51,6 +51,7 @@
 .postItem button:hover {
     background: red;
     color: white;
+    border: 1px solid transparent;
 }
 
 @media (max-width: 770px) {

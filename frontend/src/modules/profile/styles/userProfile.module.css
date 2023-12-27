@@ -30,6 +30,23 @@
     color: white;
 }
 
+.containerHeader button {
+    margin-left: 20px;
+    margin-top: 20px;
+    padding: 0.5em 1em;
+    font-size: 16px;
+    color: white;
+    background-color: transparent;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.containerHeader button:hover {
+    background-color: greenyellow;
+    color: black;
+    border: 1px solid transparent;
+}
+
 .posts {
     width: 100%;
     display: flex;

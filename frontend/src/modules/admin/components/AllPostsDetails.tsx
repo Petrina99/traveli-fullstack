@@ -1,5 +1,5 @@
 import { usePostStore } from "@/store"
-import { OnePostDetails } from "."
+import { PostDetailsItem } from "."
 
 import postService from "@/store/post-store/postService"
 
@@ -34,7 +34,7 @@ export const AllPostsDetails = () => {
                 Number of posts: {posts.length}
             </div>
             {posts.reverse().map((post) => (
-                <OnePostDetails 
+                <PostDetailsItem 
                     data={post} 
                     key={post.id}
                     handleDelete={handleDelete} 
