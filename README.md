@@ -1,5 +1,4 @@
 # **Traveli web app**
-Still work in progress
 ## Student project for Web dev course / Projektni rad za kolegij Web Programiranje
 
 ### **Description**

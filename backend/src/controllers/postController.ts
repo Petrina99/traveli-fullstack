@@ -45,10 +45,29 @@ export const createPost = async (req: Request, res: Response) => {
           content,
           author: { connect: { id: Number(authorId) } },
         }
-      })
+    })
     
-      res.json(createdPost)
+    res.json(createdPost)
 }
+
+export const editPost = async (req: Request, res: Response) => {
+    const { id } = req.params
+    const { title, location, content } = req.body
+
+    const editedPost = await prisma.post.update({
+        where: {
+            id: Number(id)
+        },
+        data: {
+            title,
+            location,
+            content
+        }
+    })
+
+    res.json(editedPost)
+}
+
 
 export const deletePost = async (req: Request, res: Response) => {
     const { id } = req.params
@@ -61,7 +80,7 @@ export const deletePost = async (req: Request, res: Response) => {
         })
       
         res.json(deletedPost)
-      } catch (error) {
+    } catch (error) {
         res.json({ error: "Post with that id does not exist" })
-      }
+    }
 }
