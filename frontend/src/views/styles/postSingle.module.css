@@ -41,6 +41,16 @@
     padding: 1em 2em 0 2em;
 }
 
+.headerButtonDiv {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.headerButtonDiv button:last-of-type {
+    margin-left: 10px;
+}
+
 .headerUpper h1 {
     color: white;
     font-size: 4.5vmin;

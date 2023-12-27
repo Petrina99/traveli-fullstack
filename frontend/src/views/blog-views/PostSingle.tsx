@@ -56,17 +56,11 @@ export const PostSingle = () => {
             if (currentPost) {
                 const data = await userService.getUser(currentPost.authorId)
                 setProfile(data)
+                setPost(currentPost)
             }
         }
 
-        const getPost = async () => {
-            const response = await postService.getOnePost(Number(id))
-    
-            setPost(response)
-        }
-
         getProfile()
-        getPost()
     }, [])
 
     useEffect(() => {
@@ -117,6 +111,10 @@ export const PostSingle = () => {
         }
     }
 
+    const handleEdit = () => {
+        navigate(`/blog/edit/${Number(id)}`)
+    }
+
     const cIcon = isCommentActive ? activeCommIcon : commIcon
 
     return (
@@ -127,9 +125,14 @@ export const PostSingle = () => {
                     <div className={style.headerUpper}>
                         <h1>{post?.title}</h1>
                         {isCurrent === false ? "" : (
-                            <button onClick={handleDelete}>
-                                Delete Post
-                            </button>
+                            <div className={style.headerButtonDiv}>
+                                <button onClick={handleEdit}>
+                                    Edit Post
+                                </button>
+                                <button onClick={handleDelete}>
+                                    Delete Post
+                                </button>
+                            </div>
                         )}
                     </div>
                     <Link to={`/profile/${profile?.id}`}>

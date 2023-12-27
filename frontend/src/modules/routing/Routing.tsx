@@ -10,7 +10,8 @@ import {
   Profile,
   BlogLocations,
   ErrorSearchPage,
-  AdminDashboard
+  AdminDashboard,
+  EditPost
 } from "@/views"
 
 export const Routing = () => {
@@ -26,6 +27,7 @@ export const Routing = () => {
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="blog/error404/:type" element={<ErrorSearchPage />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/blog/edit/:id" element={<EditPost /> } />
     </Routes>
   )
 }

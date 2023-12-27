@@ -34,12 +34,24 @@ const deletePost = async (id: number) => {
     return response.data
 }
 
+interface EditPostModel {
+    title: string;
+    location: string;
+    content: string;
+}
+const editPost = async (id: number, postData: EditPostModel) => {
+    const response = await axios.patch(API_URL + 'edit/' + id, postData)
+
+    return response.data
+}
+
 const postService = {
     getPosts,
     getUserPosts,
     createPost,
     deletePost,
-    getOnePost
+    getOnePost,
+    editPost
 }
 
 export default postService
