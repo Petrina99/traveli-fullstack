@@ -14,23 +14,23 @@ export const UserDetails = () => {
 
     useEffect(() => {
         const fetchUsers = async () => {
-            const response = await userService.getAllUsers()
-            setAllUsers(response)
-        }
+            const fetchedUsers: UserModel[] = await userService.getAllUsers()
 
-        fetchUsers()
-    }, [allUsers])
+            const findUsers: UserModel[] = fetchedUsers.filter((user) => (
+                user.role === "USER"
+            ))
 
-    useEffect(() => {
-        const findAdmins =  () => {
-            const result = allUsers.filter((user) => (
+            setAllUsers(findUsers)
+
+            const findAdmins: UserModel[] = fetchedUsers.filter((user) => (
                 user.role === "ADMIN"
             ))
 
-            setAdmins(result)
+            setAdmins(findAdmins)
         }
-        findAdmins()
-    }, [allUsers])
+
+        fetchUsers()
+    }, [])
     
     const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
         const { value } = e.currentTarget
@@ -46,6 +46,13 @@ export const UserDetails = () => {
                 <p>Number of users: {allUsers.length}</p>
                 <p>Number of admins: {admins.length}</p>
             </div>
+            {admins.map((user) => (
+                <UserDetailsItem 
+                    key={user.id}
+                    data={user}
+                    handleDelete={handleDelete}
+                />
+            ))}
             {allUsers.map((user) => (
                 <UserDetailsItem 
                     key={user.id}

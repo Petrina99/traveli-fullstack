@@ -123,6 +123,9 @@ export const Post = ({data} : propTypes) => {
                     {data.content.length < 400 && (
                         <pre>{data.content}</pre>
                     )}
+                    <Link to={`/blog/${data.id}`}>
+                        See full post
+                    </Link>
                 </div>
                 <div className={style.contentFooter}>
                     <div className={style.footerDiv}>

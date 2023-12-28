@@ -24,9 +24,9 @@ export const AllPostsDetails = () => {
             const fetchedPosts = await postService.getPosts()
             addPosts(fetchedPosts)
         }
-
+        
         fetchPosts()
-    }, [posts])
+    }, [])
 
     return (
         <div className={style.layout}>

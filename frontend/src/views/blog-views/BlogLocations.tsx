@@ -35,6 +35,9 @@ export const BlogLocations = () => {
                     Create a new post
                 </Link>
             </div>
+            <div className={style.addNewPost}>
+                <p>Posts about: {loc}</p>
+            </div>
             {filteredPosts.reverse().map((x) => (
                 <Post data={x} key={x.id}/>
             ))}
