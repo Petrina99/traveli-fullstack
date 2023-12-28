@@ -20,7 +20,10 @@ export const toggleLike = async (req: Request, res: Response) => {
             }
         })
 
-        res.json(like)
+        res.json({
+            like: like,
+            message: "deleted"
+        })
     } else {
         const like = await prisma.like.create({
             data: {
@@ -29,7 +32,10 @@ export const toggleLike = async (req: Request, res: Response) => {
             },
         })
         
-        res.json(like)
+        res.json({
+            like: like,
+            message: "created"
+        })
     }
 }
 
@@ -43,4 +49,11 @@ export const getLikes = async (req: Request, res: Response) => {
     })
 
     res.json(likeCount)
+}
+
+export const getAllLikes = async (req: Request, res: Response) => {
+
+    const allLikes = await prisma.like.findMany()
+
+    res.json(allLikes)
 }

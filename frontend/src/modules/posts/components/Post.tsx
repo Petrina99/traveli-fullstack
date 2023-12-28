@@ -16,8 +16,8 @@ import userService from '@/store/user-store/userService';
 
 import { useLikeStore, useUserStore } from '@/store';
 
-import { useLike } from './hooks';
 import commentService from '@/store/comment-store/commentService';
+import likeService from '@/store/like-store/likeService';
 
 interface propTypes {
     data: PostModel
@@ -28,61 +28,72 @@ export const Post = ({data} : propTypes) => {
     const [profile, setProfile] = useState<UserModel>()
     const [commentsCount, setCommentsCount] = useState(0)
     const [currentLikes, setCurrentLikes] = useState<LikeModel[]>([])
+    const [isLiked, setIsLiked] = useState(false)
 
-    const { likes, getLikes, isLiked, checkLiked, toggleLike } = useLike()
+    //const { likes, getLikes, isLiked, checkLiked, toggleLike } = useLike()
 
     const user = useUserStore((state) => state.user)
-    const postLikes = useLikeStore((state) => state.postLikes)
     const addLike = useLikeStore((state) => state.addLike)
+    const deleteLike = useLikeStore((state) => state.deleteLike)
+    const likes = useLikeStore((state) => state.likes)
 
     const handleLike = async () => {
         if (data.id && user?.id) {
-            toggleLike(data.id, user.id)
+            const response = await likeService.toggleLike(user.id, data.id)
+            const newLikes: LikeModel[] = await likeService.getAllLikes()
+
+            const result = newLikes.filter((like) => (
+                like.postId === data.id
+            ))
+
+            setCurrentLikes(result)
+
+            if (response.message === "deleted") {
+                deleteLike(response.like.id)
+                setIsLiked(false)
+            } else {
+                addLike(response.like)
+                setIsLiked(true)
+            }
         }
     }
     
     useEffect(() => {
-        const getProfile = async () => {
 
+        const fetchData = async () => {
+
+            // getting user profile
             const userData = await userService.getUser(data.authorId)
             setProfile(userData)
-        }
 
-        const getComments = async () => {
+            // getting commments
             if (data.id) {
                 const comments = await commentService.getAllComments(data.id)
                 setCommentsCount(comments.length)
             }
-        }
 
-        const fetchLikes = () => {
-            if (data.id) {
-                getLikes(data.id)
-                addLike({ id: data.id, likes })
+            // getting likes
 
-                const result = postLikes.find((postLike) => (
-                    postLike.id === data.id
-                ))
-                
-                if (result) {
-                    setCurrentLikes(result?.likes)
-                }
+            const result = likes.filter((like) => (
+                like.postId === data.id
+            ))
+            
+            setCurrentLikes(result)
+
+            // checking if current user liked
+            const didLike = result.find((res) => (
+                res.userId === user?.id
+            ))
+
+            if (didLike === undefined) {
+                setIsLiked(false)
+            } else {
+                setIsLiked(true)
             }
         }
-
-        getProfile()
-        getComments()
-        fetchLikes()
-
-        if (data.id) {
-            getLikes(data.id)
-        }
-
-        if (data.id && user?.id) {
-            checkLiked(data.id, user.id)
-        }
-        
-    }, [likes])
+    
+        fetchData()
+    }, [])
     
     const icon = isLiked ? activeLikeIcon : likeIcon;
 

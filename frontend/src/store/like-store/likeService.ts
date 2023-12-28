@@ -14,9 +14,17 @@ const getLikes = async (id:number) => {
 
     return response.data
 }
+
+const getAllLikes = async () => {
+    const response = await axios.get(API_URL)
+
+    return response.data
+}
+
 const likeService = {
     toggleLike,
-    getLikes
+    getLikes,
+    getAllLikes
 }
 
 export default likeService
