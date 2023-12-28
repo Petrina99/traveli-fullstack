@@ -5,7 +5,7 @@ import { CommentModel } from '@/models'
 
 export interface CommentState {
     comments: CommentModel[];
-    addComments: (comms: CommentModel[]) => void;
+    getComments: (comms: CommentModel[]) => void;
     addComment: (comm: CommentModel) => void;
     deleteComment: (id: number) => void;
     resetComments: () => void;
@@ -16,7 +16,7 @@ export const useCommentStore = create<CommentState>()(
         persist(
             (set) => ({
                 comments: [],
-                addComments: (comms) => {
+                getComments: (comms) => {
                     set(() => ({ comments: comms }))
                 },
                 addComment: (comm) => {

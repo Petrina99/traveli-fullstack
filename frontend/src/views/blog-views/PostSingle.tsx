@@ -13,14 +13,13 @@ import activeLikeIcon from '@/assets/heart-svgrepo-com-yellow.svg'
 import commIcon from '@/assets/comment-5-svgrepo-com.svg'
 import activeCommIcon from '@/assets/comment-yellow.svg'
 
-import { useCommentStore, usePostStore, useUserStore } from "@/store"
-import { PostModel, UserModel } from "@/models"
+import { useCommentStore, useLikeStore, useUserStore } from "@/store"
+import { LikeModel, PostModel, UserModel } from "@/models"
 
 import userService from "@/store/user-store/userService"
 import postService from "@/store/post-store/postService"
-
-import { useLike } from "@/modules"
 import commentService from "@/store/comment-store/commentService"
+import likeService from "@/store/like-store/likeService"
 
 export const PostSingle = () => {
 
@@ -28,76 +27,88 @@ export const PostSingle = () => {
 
     let loc = useLocation()
     const navigate = useNavigate()
-    
-    const { likes, getLikes, isLiked, checkLiked, toggleLike } = useLike()
-
-    const posts = usePostStore((state) => state.posts)
 
     const user = useUserStore((state) => state.user)
 
     const comments = useCommentStore((state) => state.comments)
-    const addComments = useCommentStore((state) => state.addComments)
+    const getComments = useCommentStore((state) => state.getComments)
+
+    const likes = useLikeStore((state) => state.likes)
+    const addLike = useLikeStore((state) => state.addLike)
+    const deleteLike = useLikeStore((state) => state.deleteLike)
+
+    const [currentLikes, setCurrentLikes] = useState<LikeModel[]>([])
+    const [isLiked, setIsLiked] = useState(false)
 
     const [isCurrent, setIsCurrent] = useState(false)
     const [profile, setProfile] = useState<UserModel>()
+
     const [post, setPost] = useState<PostModel>()
+
     const [isCommentActive, setIsCommentActive] = useState(false)
-    const [lIcon, setLIcon] = useState(likeIcon)
     
+    const handleLike = async () => {
+        if (post?.id && user?.id) {
+            const response = await likeService.toggleLike(user.id, post.id)
+            const newLikes: LikeModel[] = await likeService.getAllLikes()
+
+            const result = newLikes.filter((like) => (
+                like.postId === post.id
+            ))
+
+            setCurrentLikes(result)
+
+            if (response.message === "deleted") {
+                deleteLike(response.like.id)
+                setIsLiked(false)
+            } else {
+                addLike(response.like)
+                setIsLiked(true)
+            }
+        }
+    }
+
     useEffect(() => {
         if (loc.search === "?comment") {
             setIsCommentActive(true)
         }
 
-        const getProfile = async () => {
-
-            const currentPost = posts.find((p:PostModel) => p.id === Number(id))
+        const fetchData = async () => {
+            const currentPost = await postService.getOnePost(Number(id))
+            const allComms = await commentService.getAllComments(Number(id))
+            getComments(allComms)
 
             if (currentPost) {
-                const data = await userService.getUser(currentPost.authorId)
-                setProfile(data)
+                const userData = await userService.getUser(currentPost.authorId)
+                setProfile(userData)
                 setPost(currentPost)
-
-                if (currentPost.id) {
-                    getLikes(currentPost.id)
-                }
 
                 if ((currentPost.authorId === user?.id) || (user?.role === "ADMIN")) {
                     setIsCurrent(true)
                 }
 
-                if (currentPost?.id && user?.id) {
-                    checkLiked(currentPost.id, user.id)
-        
-                    if (isLiked) {
-                        setLIcon(activeLikeIcon)
+                if (currentPost.id) {
+                    const fetchedLikes: LikeModel[] = likes.filter((like) => (
+                        like.postId === currentPost.id
+                    ))
+
+                    setCurrentLikes(fetchedLikes)
+
+                    const didLike = fetchedLikes.find((like) => (
+                        like.userId === user?.id
+                    ))
+
+                    if (didLike === undefined) {
+                        setIsLiked(false)
                     } else {
-                        setLIcon(likeIcon)
+                        setIsLiked(true)
                     }
                 }
             }
         }
 
-        const getComments = async () => {
-            const allComms = await commentService.getAllComments(Number(id))
-            addComments(allComms)
-        }
-
-        getProfile()
-        getComments()
+        fetchData()
     }, [])
-
-    useEffect(() => {
-
-        console.log(comments)
-
-    }, [comments])
-
-    const handleLike = () => {
-        if (post?.id && user?.id) {
-            toggleLike(post.id, user.id)
-        }
-    }
 
     const handleComment = () => {
         setIsCommentActive(!isCommentActive)
@@ -119,7 +130,8 @@ export const PostSingle = () => {
     }
 
     const cIcon = isCommentActive ? activeCommIcon : commIcon
-
+    const lIcon = isLiked ? activeLikeIcon : likeIcon
+    
     return (
         <div className={style.layout}>
             <Header />
@@ -156,7 +168,7 @@ export const PostSingle = () => {
                                 <button className={style.footerBtn} onClick={handleLike}>
                                     <img src={lIcon} alt="like icon" />
                                 </button>
-                                <span>{likes.length}</span>
+                                <span>{currentLikes.length}</span>
                             </div>
                             <div>
                                 <button className={style.footerBtn} onClick={handleComment}>
