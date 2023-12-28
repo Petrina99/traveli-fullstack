@@ -1,4 +1,4 @@
-import { PostModel } from "@/models"
+import { CommentModel, LikeModel, PostModel } from "@/models"
 
 import { Link, useNavigate } from "react-router-dom"
 
@@ -14,30 +14,33 @@ import { useState, useEffect } from "react";
 
 import style from '../styles/userProfile.module.css'
 
-import { useLike } from "@/modules";
+import { useLikeStore } from "@/store";
 
 export const PostDetails: React.FC<propTypes> = (props) => {
 
     const navigate = useNavigate()
 
     const { data, isCurrent, handleDelete } = props
-    const [commentsCount, setCommentsCount] = useState()
+    const [comments, setComments] = useState<CommentModel[]>()
+    const [currentLikes, setCurrentLikes] = useState<LikeModel[]>([])
 
-    const { likes, getLikes } = useLike()
+    const likes = useLikeStore((state) => state.likes)
 
     useEffect(() => {
-        const getComments = async () => {
+        const fetchData = async () => {
             if (data.id) {
                 const comments = await commentService.getAllComments(data.id)
-                setCommentsCount(comments.length)
+                setComments(comments)
+
+                const fetchedLikes: LikeModel[] = likes.filter((like) => (
+                    like.postId === data.id
+                ))
+                
+                setCurrentLikes(fetchedLikes)
             }
         }
 
-        if (data.id) {
-            getLikes(data.id)
-        }
-
-        getComments()
+        fetchData()
     }, [])
 
     const handleEdit = () => {
@@ -50,8 +53,8 @@ export const PostDetails: React.FC<propTypes> = (props) => {
                 <h1>{data.title}</h1>
             </Link>
             <p>{data.date?.slice(0, 10)}</p>
-            <p>{likes.length} Likes</p>
-            <p>{commentsCount} Comments</p>
+            <p>{currentLikes.length} Likes</p>
+            <p>{comments?.length} Comments</p>
             {isCurrent === false ? "" : (
                 <div className={style.postItemButtons}>
                     <button 
