@@ -40,13 +40,17 @@ export const AutocompleteLocation = () => {
             const results: string[] = allLocations.filter((location) => (
                 location.toLowerCase().startsWith(value.toLowerCase())
             ))
+            
+            const removedDuplicates = results.filter((value, index) => (
+                results.indexOf(value) === index
+            ))
 
             if (value.length > 0) {
-                if (results.length > 5) {
-                    const slicedArray = results.slice(0, 5)
+                if (removedDuplicates.length > 5) {
+                    const slicedArray = removedDuplicates.slice(0, 5)
                     setSuggestions(slicedArray)
                 } else {
-                    setSuggestions(results)
+                    setSuggestions(removedDuplicates)
                 }
             } else {
                 setSuggestions([])

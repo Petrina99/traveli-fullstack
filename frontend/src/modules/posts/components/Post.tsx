@@ -85,7 +85,12 @@ export const Post = ({data} : propTypes) => {
                     <p className={style.date}>{data.date?.slice(0, 10)}</p>
                 </div>
                 <div className={style.text}>
-                    <p>{data.content}</p>
+                    {data.content.length > 400 && (
+                        <pre>{data.content.substring(0, 400)}...</pre>
+                    )}
+                    {data.content.length < 400 && (
+                        <pre>{data.content}</pre>
+                    )}
                 </div>
                 <div className={style.contentFooter}>
                     <div className={style.footerDiv}>

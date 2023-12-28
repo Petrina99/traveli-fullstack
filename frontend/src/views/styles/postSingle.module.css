@@ -42,13 +42,31 @@
 }
 
 .headerButtonDiv {
-    width: 50%;
+    width: 100%;
     display: flex;
-    justify-content: flex-end;
+}
+
+.headerButtonDiv button {
+    background-color: transparent;
+    border: none;
+    border: 1px solid white;
+    color: white;
+    cursor: pointer;
+    padding: 0.2em 1em;
+}
+
+.headerButtonDiv button:first-of-type:hover {
+    background-color: green;
+    border: 1px solid transparent;
 }
 
 .headerButtonDiv button:last-of-type {
     margin-left: 10px;
+}
+
+.headerButtonDiv button:last-of-type:hover {
+    background-color: red;
+    border: 1px solid transparent;
 }
 
 .headerUpper h1 {
@@ -57,26 +75,20 @@
     overflow: hidden;
     text-overflow: ellipsis;
     font-weight: 800;
+    margin-bottom: 10px;
 }
 
-.headerUpper button {
-    background-color: transparent;
-    border: none;
-    border: 2px solid white;
-    color: white;
-    cursor: pointer;
-}
-
-.headerUpper button:hover {
-    background-color: white;
-    color: black;
-}
-
-.postHeader p {
+.postHeader a {
     color: white;
     font-size: 16px;
     padding: 0 2em 1em 2em;
-    font-weight: 400;
+    font-weight: 800;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.postHeader a:hover {
+    text-decoration: underline;
 }
 
 .postContent {
@@ -112,9 +124,10 @@
     width: 100%;
 }
 
-.postText p {
+.postText pre {
     color: white;
     font-size: 16px;
+    white-space: pre-wrap;
 }
 
 .contentFooter {

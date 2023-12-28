@@ -136,7 +136,7 @@ export const PostSingle = () => {
                         )}
                     </div>
                     <Link to={`/profile/${profile?.id}`}>
-                        <p>@{profile?.username}</p>
+                        @{profile?.username}
                     </Link>
                 </div>
                 <div className={style.postContent}>
@@ -145,7 +145,7 @@ export const PostSingle = () => {
                         <p className={style.date}>{post?.date?.slice(0, 10)}</p>
                     </div>
                     <div className={style.postText}>
-                        <p>{post?.content}</p>
+                        <pre>{post?.content}</pre>
                     </div>
                     <div className={style.contentFooter}>
                         <div className={style.footerDiv}>

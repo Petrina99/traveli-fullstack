@@ -35,20 +35,17 @@ export const EditPost = () => {
                 setLocation(currentPost.location)
                 setContent(currentPost.content)
             }
-        }
 
-        const checkIsAllowed = () => {
-            if (user) {
-                if (user.role !== "ADMIN") {
-                    if (user.id !== post?.authorId) {
-                        navigate('/blog')
-                    }
+            console.log(user?.id, post?.authorId)
+            if (user?.role !== "ADMIN") {
+                if (user?.id !== currentPost?.authorId) {
+                    navigate('/blog')
                 }
             }
         }
 
+
         getPost()
-        checkIsAllowed()
     }, [])
 
     const handleSubmit = async () => {
