@@ -57,37 +57,40 @@ export const PostSingle = () => {
                 const data = await userService.getUser(currentPost.authorId)
                 setProfile(data)
                 setPost(currentPost)
+
+                if (currentPost.id) {
+                    getLikes(currentPost.id)
+                }
+
+                if ((currentPost.authorId === user?.id) || (user?.role === "ADMIN")) {
+                    setIsCurrent(true)
+                }
+
+                if (currentPost?.id && user?.id) {
+                    checkLiked(currentPost.id, user.id)
+        
+                    if (isLiked) {
+                        setLIcon(activeLikeIcon)
+                    } else {
+                        setLIcon(likeIcon)
+                    }
+                }
             }
         }
-
-        getProfile()
-    }, [])
-
-    useEffect(() => {
 
         const getComments = async () => {
             const allComms = await commentService.getAllComments(Number(id))
             addComments(allComms)
         }
 
-        if ((profile?.id === user?.id) || (user?.role === "ADMIN")) {
-            setIsCurrent(true)
-        }
-        if (post?.id) {
-            getLikes(post.id)
-        }
-
-        if (post?.id && user?.id) {
-            checkLiked(post.id, user.id)
-
-            if (isLiked) {
-                setLIcon(activeLikeIcon)
-            } else {
-                setLIcon(likeIcon)
-            }
-        }
-
+        getProfile()
         getComments()
+    }, [])
+
+    useEffect(() => {
+
+        console.log(comments)
+
     }, [comments])
 
     const handleLike = () => {
@@ -170,7 +173,7 @@ export const PostSingle = () => {
                 {isCommentActive === false ? "" :
                     <div className={style.postComments}>
                         <h1>Comments</h1>
-                        {comments.map((x) => (
+                        {comments.reverse().map((x) => (
                             <Comment data={x} key={x.id} />
                         ))}
                     </div>

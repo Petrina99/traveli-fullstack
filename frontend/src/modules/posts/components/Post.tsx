@@ -10,11 +10,11 @@ import activeLikeIcon from '@/assets/heart-svgrepo-com-yellow.svg'
 
 import commIcon from '@/assets/comment-5-svgrepo-com.svg'
 
-import { PostModel, UserModel } from '@/models';
+import { LikeModel, PostModel, UserModel } from '@/models';
 
 import userService from '@/store/user-store/userService';
 
-import { useUserStore } from '@/store';
+import { useLikeStore, useUserStore } from '@/store';
 
 import { useLike } from './hooks';
 import commentService from '@/store/comment-store/commentService';
@@ -27,10 +27,13 @@ export const Post = ({data} : propTypes) => {
 
     const [profile, setProfile] = useState<UserModel>()
     const [commentsCount, setCommentsCount] = useState(0)
+    const [currentLikes, setCurrentLikes] = useState<LikeModel[]>([])
 
     const { likes, getLikes, isLiked, checkLiked, toggleLike } = useLike()
 
     const user = useUserStore((state) => state.user)
+    const postLikes = useLikeStore((state) => state.postLikes)
+    const addLike = useLikeStore((state) => state.addLike)
 
     const handleLike = async () => {
         if (data.id && user?.id) {
@@ -52,8 +55,24 @@ export const Post = ({data} : propTypes) => {
             }
         }
 
+        const fetchLikes = () => {
+            if (data.id) {
+                getLikes(data.id)
+                addLike({ id: data.id, likes })
+
+                const result = postLikes.find((postLike) => (
+                    postLike.id === data.id
+                ))
+                
+                if (result) {
+                    setCurrentLikes(result?.likes)
+                }
+            }
+        }
+
         getProfile()
         getComments()
+        fetchLikes()
 
         if (data.id) {
             getLikes(data.id)
@@ -100,7 +119,7 @@ export const Post = ({data} : propTypes) => {
                             <button onClick={handleLike} className={style.footerBtn}>
                                 <img src={icon} alt="like icon" />
                             </button>
-                            <span>{likes.length}</span>
+                            <span>{currentLikes.length}</span>
                         </div>
                         <div className={style.commDiv}>
                             <Link to={`/blog/${data.id}?comment`}>
