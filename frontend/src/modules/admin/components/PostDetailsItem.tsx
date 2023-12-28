@@ -1,7 +1,6 @@
-import { PostModel, UserModel } from "@/models";
+import { CommentModel, LikeModel, PostModel, UserModel } from "@/models";
 
 import { useEffect, useState } from "react";
-import { useLike } from "@/modules";
 
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -14,39 +13,42 @@ import commentService from "@/store/comment-store/commentService";
 import userService from "@/store/user-store/userService";
 
 import style from '../styles/postDetails.module.css'
+import { useLikeStore } from "@/store";
 
 export const PostDetailsItem: React.FC<propTypes> = (props) => {
 
     const navigate = useNavigate()
 
     const { data, handleDelete } = props;
-    const [commentsCount, setCommentsCount] = useState()
+
+    const [currentLikes, setCurrentLikes] = useState<LikeModel[]>([])
+    const [comments, setComments] = useState<CommentModel[]>([])
     const [profile, setProfile] = useState<UserModel>()
 
-    const { likes, getLikes } = useLike()
+    const likes = useLikeStore((state) => state.likes)
 
     useEffect(() => {
-        const getComments = async () => {
+
+        const fetchData = async () => {
             if (data.id) {
-                const comments = await commentService.getAllComments(data.id)
-                setCommentsCount(comments.length)
-            }
-        }
+                const fetchedComments = await commentService.getAllComments(data.id)
+                setComments(fetchedComments)
 
-        const fetchUser = async () => {
+                const fetchedLikes: LikeModel[] = likes.filter((like) => (
+                    like.postId === data.id
+                ))
+
+                setCurrentLikes(fetchedLikes)
+            }
+
             if (data.authorId) {
-                const response: UserModel = await userService.getUser(data.authorId)
+                const userData: UserModel = await userService.getUser(data.authorId)
 
-                setProfile(response)
+                setProfile(userData)
             }
         }
 
-        if (data.id) {
-            getLikes(data.id)
-        }
-
-        fetchUser()
-        getComments()
+        fetchData()
     }, [])
 
     const handleEdit = () => {
@@ -60,8 +62,8 @@ export const PostDetailsItem: React.FC<propTypes> = (props) => {
                 <h1>{data.title}</h1>
             </Link>
             <p>{data.date?.slice(0, 10)}</p>
-            <p>{likes.length} Likes</p>
-            <p>{commentsCount} Comments</p>
+            <p>{currentLikes.length} Likes</p>
+            <p>{comments.length} Comments</p>
             <button 
                 value={data.id}
                 onClick={handleDelete}

@@ -50,7 +50,7 @@ export const Comment = ({data}: propType) => {
         <div className={style.comment}>
             <div className={style.commentText}>
                 <Link to={`/profile/${data.authorId}`}>
-                    <p>@{uname}</p>
+                    @{uname}
                 </Link>
                 <p>{data?.text}</p>
                 {isCurrentUser === false ? "" : (

@@ -8,14 +8,20 @@
     background-color: #444444;
 }
 
-.comment p {
-    width: 100%;
+.commentText a {
+    text-decoration: none;
+    font-weight: 800;
     color: white;
 }
 
-.comment p:first-of-type {
-    margin-bottom: 5px;
-    font-weight: 800;
+.commentText a:hover {
+    text-decoration: underline;
+}
+
+.commentText p {
+    width: 100%;
+    color: white;
+    margin-bottom: 10px;
 }
 
 .commentText {

@@ -24,7 +24,7 @@ export const AdminDashboard = () => {
 
     const navigate = useNavigate()
 
-    const [currentChoice, setCurrentChoice] = useState(2)
+    const [currentChoice, setCurrentChoice] = useState(1)
 
     const user = useUserStore((state) => state.user)
 
@@ -37,7 +37,6 @@ export const AdminDashboard = () => {
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         const { value } = e.currentTarget;
 
-        console.log(value)
         setCurrentChoice(Number(value))
     }
 
