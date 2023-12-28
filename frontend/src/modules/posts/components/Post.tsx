@@ -81,7 +81,9 @@ export const Post = ({data} : propTypes) => {
             </div>
             <div className={style.content}>
                 <div className={style.location}>
-                    <p>{data.location} <img src={locationIcon} /></p>
+                    <Link to={`/blog/location/${data.location}`}>
+                        {data.location} <img src={locationIcon} />
+                    </Link>
                     <p className={style.date}>{data.date?.slice(0, 10)}</p>
                 </div>
                 <div className={style.text}>
