@@ -2,6 +2,9 @@ import { PrismaClient } from "@prisma/client"
 import { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
+import { supabase } from "../server"
+
+import randomstring from 'randomstring'
 
 export const generateJWT = (id: number) => {
     return jwt.sign({ id }, process.env.JWT_SECRET as string, {
@@ -100,4 +103,61 @@ export const deleteUser = async (req: Request, res: Response) => {
     })
 
     res.json(deletedUser)
+}
+
+export const addUserImage = async (req: Request, res: Response) => {
+    try {
+        if (!req.file?.buffer) {
+            return res.json({ error: "No file uploaded"})
+        }
+
+        const { id } = req.params
+
+        const randomString = randomstring.generate(10)
+
+        const currentUser = await prisma.user.findFirst({
+            where: {
+                id: Number(id),
+            }
+        })
+
+        if (currentUser?.imageUrl !== "") {
+            const { data } = await supabase
+                .storage
+                .from('images')
+                .remove([`${currentUser?.imageUrl?.slice(-21)}`])
+        }
+
+        const { data, error } = await supabase
+            .storage
+            .from('images')
+            .upload('user-image-' + randomString, req.file.buffer, {
+                upsert: true
+            })
+        
+        if (error) {
+            return res.json({ error: error })
+        }
+
+        if (data) {
+            const { data } = supabase
+                .storage
+                .from('images')
+                .getPublicUrl('user-image-' + randomString);
+
+            const user = await prisma.user.update({
+                where: {
+                    id: Number(id)
+                }, 
+                data : {
+                    imageUrl: data.publicUrl
+                }
+            })
+
+            res.json(user)
+        }
+    } catch (error) {
+        console.error(error)
+        res.json({ error: "Server error"})
+    }
 }

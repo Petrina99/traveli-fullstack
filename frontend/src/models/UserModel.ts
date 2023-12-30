@@ -8,4 +8,5 @@ export interface UserModel {
     role?: string;
     posts?: PostModel[];
     comments?: CommentModel[]
+    imageUrl?: string;
 }

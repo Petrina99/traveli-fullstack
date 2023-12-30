@@ -4,8 +4,11 @@ import {
     deleteUser, 
     getAllUsers, 
     getUser, 
-    loginUser
+    loginUser,
+    addUserImage
 } from '../controllers'
+
+import { upload } from '../server'
 
 export const userRouter = express.Router()
 
@@ -16,3 +19,5 @@ userRouter.route('/register').post(createUser)
 userRouter.route('/login').post(loginUser)
 
 userRouter.route('/delete/:id').delete(deleteUser)
+
+userRouter.route('/:id').patch(upload.single('image'), addUserImage)

@@ -4,7 +4,7 @@ import style from '../styles/userProfile.module.css'
 
 import { useEffect, useState } from 'react'
 
-import { PostDetails } from '.'
+import { PostDetails, ImageUploader } from '.'
 
 import { usePostStore, useUserStore } from '@/store'
 import { PostModel, UserModel } from '@/models'
@@ -56,8 +56,11 @@ export const UserProfile = () => {
 
     useEffect(() => {
         const getProfile = async () => {
-            const data = await userService.getUser(Number(id))
+            const data: UserModel = await userService.getUser(Number(id))
 
+            if ((data.id === user?.id) || (user?.role === "ADMIN")) {
+                setIsCurrent(true)
+            }
             setProfile(data)
         }
     
@@ -65,23 +68,26 @@ export const UserProfile = () => {
         filterPosts()
     }, [])
 
-    useEffect(() => {
-        if ((profile?.id === user?.id) || (user?.role === "ADMIN")) {
-            setIsCurrent(true)
-        }
-    }, [profile])
-
     return (
         <div className={style.userContainer}>
             <div className={style.containerHeader}>
-                <h1>Username: {profile?.username}</h1>
-                <p>Email: {profile?.email}</p>
-                {user?.role === "ADMIN" ? (
-                    <Link to='/admin'>
-                        <button>
-                            Open dashboard
-                        </button>
-                    </Link>
+                <ImageUploader
+                    isCurrent={isCurrent} 
+                    profile={profile}
+                    setProfile={setProfile}
+                />
+                <div>
+                    <h1 className={style.headerUsername}>Username: @{profile?.username}</h1>
+                    <h1 className={style.headerEmail}>Email: {profile?.email}</h1>
+                </div>
+                {(user?.role === "ADMIN" && user.id === Number(id)) ? (
+                    <div className={style.dashboardDiv}>
+                        <Link to='/admin'>
+                            <button className={style.dashboardButton}>
+                                Open dashboard
+                            </button>
+                        </Link>
+                    </div>
                 ) : ""}
             </div>
             <div className={style.posts}>
