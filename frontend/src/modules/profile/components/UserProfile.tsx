@@ -76,9 +76,9 @@ export const UserProfile = () => {
                     profile={profile}
                     setProfile={setProfile}
                 />
-                <div>
-                    <h1 className={style.headerUsername}>Username: @{profile?.username}</h1>
-                    <h1 className={style.headerEmail}>Email: {profile?.email}</h1>
+                <div className={style.headerInfo}>
+                    <p className={style.headerUsername}>Username: @{profile?.username}</p>
+                    <p className={style.headerEmail}>Email: {profile?.email}</p>
                 </div>
                 {(user?.role === "ADMIN" && user.id === Number(id)) ? (
                     <div className={style.dashboardDiv}>

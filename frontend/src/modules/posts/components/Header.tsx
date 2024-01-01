@@ -34,9 +34,9 @@ export const Header = () => {
             <AutocompleteUsers />
             <AutocompleteLocation />
             <div className={style.user}>
-                <Link to={`/profile/${user?.id}`}>
+                <a href={`/profile/${user?.id}`}>
                     {user?.username}
-                </Link>
+                </a>
                 <Link to="/">
                     <button onClick={handleLogout}>
                         Logout

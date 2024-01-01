@@ -9,24 +9,21 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
     padding-bottom: 1em;
     border-bottom: 3px solid #C5E117;
     box-shadow: 0 4px 0 rgba(0, 0, 0, 0.3);
 }
 
-.containerHeader h1 {
+.headerInfo {
     width: 100%;
-    color: white;
-    font-size: 4.5vmin;
-    padding-left: 20px;
+    margin-top: 20px;
 }
 
-.headerUsername {
+.headerInfo p {
     width: 100%;
     color: white;
-    font-size: 4.5vmin;
-    margin-top: 20px;
+    font-size: 24px;
+    padding-left: 20px;
 }
 
 .headerEmail {
@@ -128,7 +125,7 @@
         justify-content: center;
     }
 
-    .containerHeader h1 {
+    .headerInfo h1 {
         font-size: 6.5vmin;
     }
 

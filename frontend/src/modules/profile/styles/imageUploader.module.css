@@ -1,11 +1,21 @@
 .imageUploader {
     padding: 1em;
-    width: 30%;
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.imageContainer {
+    width: 100%;
+    height: 250px;
 }
 
 .image {
     max-width: 100%;
-    max-height: 50%;
+    height: 100%;
+    border-radius: 10px;
+    border: 1px solid white;
+    object-fit: fill;
 }
 
 .imageMessage {
@@ -14,13 +24,11 @@
 
 .inputDiv {
     width: 100%;
-    margin-top: 20px;
 }
 
 .inputLabel {
     cursor: pointer;
     padding: 0.2em;
-    border: 1px solid white;
     color: white;
     font-size: 16px;
     width: 100%;
@@ -28,9 +36,7 @@
 }
 
 .inputLabel:hover {
-    background-color: #C5E117;
-    border: 1px solid transparent;
-    color: black;
+    text-decoration: underline;
 }
 
 .fileInput {
@@ -53,16 +59,8 @@
     color: black;
 }
 
-@media (max-width: 770px) {
+@media (max-width: 780px) {
     .imageUploader {
         width: 100%;
-    }
-
-    .image {
-        max-width: 50%;
-    }
-
-    .inputLabel {
-        width: 50%;
     }
 }

@@ -104,7 +104,7 @@ export const AutocompleteLocation = () => {
                         id="loc-search" 
                         placeholder='Search locations' 
                         className={style.input}
-                        autoFocus
+                        
                         autoComplete='off'
                         onChange={handleChange}
                         value={inputValue}

@@ -82,7 +82,7 @@ export const AutocompleteUsers = () => {
                         id="user-search" 
                         placeholder='Search users' 
                         className={style.input}
-                        autoFocus
+                        
                         autoComplete='off'
                         onChange={handleChange}
                         value={inputValue}

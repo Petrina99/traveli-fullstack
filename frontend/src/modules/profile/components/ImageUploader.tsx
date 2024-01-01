@@ -64,24 +64,22 @@ export const ImageUploader: React.FC<propTypes> = (props) => {
 
     return (
         <div className={style.imageUploader}>
-            <div className={style.imageContainer}>
-                {profile?.imageUrl ? (
+            {profile?.imageUrl && (
+                <div className={style.imageContainer}>
                     <img 
                         src={profile?.imageUrl} 
                         alt="profile image" 
                         className={style.image}
                     />
-                ) : (
-                    <span className={style.imageMessage}>User doesn't have a profile picture</span>
-                )}
-            </div>
+                </div>
+            )}
             {isCurrent ? (
                 <div className={style.inputDiv}>
                     <label 
                         htmlFor="image" 
                         className={style.inputLabel}
                     >
-                        Change your profile picture
+                        {selectedImage ? selectedImage.name : "Change your profile picture"}
                     </label>
                     <input className={style.fileInput} type="file" id="image" onChange={handleImageChange} />
                     {selectedImage && (
