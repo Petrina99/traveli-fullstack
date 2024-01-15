@@ -12,7 +12,8 @@ import {
     commentRouter, 
     postRouter, 
     userRouter,
-    likeRouter 
+    likeRouter,
+    weatherRouter 
 } from './routes';
 
 dotenv.config();
@@ -21,7 +22,7 @@ const app: Express = express();
 const port = process.env.PORT || 8000;
 const supabaseUrl = process.env.SUPABASE_URL || "none"
 const supabaseKey = process.env.SUPABASE_KEY || "none"
-
+export const weatherApiKey = process.env.WEATHER_KEY
 
 export const supabase = createClient(supabaseUrl, supabaseKey)
 
@@ -37,6 +38,7 @@ app.use('/api/posts', postRouter)
 app.use('/api/users', userRouter)
 app.use('/api/comments', commentRouter)
 app.use('/api/likes', likeRouter)
+app.use('/api/weather', weatherRouter)
 app.use(errorHandler)
 
 app.listen(port, () => {
