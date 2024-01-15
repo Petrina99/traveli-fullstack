@@ -96,13 +96,28 @@ export const loginUser = async (req: Request, res: Response) => {
 export const deleteUser = async (req: Request, res: Response) => {
     const { id } = req.params
 
-    const deletedUser = await prisma.user.delete({
+    const findUser = await prisma.user.findFirst({
         where: {
             id: Number(id)
         }
-    })
+    })    
 
-    res.json(deletedUser)
+    if (findUser) {
+        if (findUser?.imageUrl !== "") {
+            const { data } = await supabase
+                .storage
+                .from('images')
+                .remove([`${findUser?.imageUrl?.slice(-21)}`])
+        }
+
+        const deletedUser = await prisma.user.delete({
+            where: {
+                id: Number(id)
+            }
+        })
+
+        res.json(deletedUser)
+    }
 }
 
 export const addUserImage = async (req: Request, res: Response) => {

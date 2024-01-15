@@ -37,7 +37,15 @@ export const UserDetails = () => {
 
         const response = await userService.deleteUser(Number(value))
 
-        window.alert(`Deleted user with id: ${response.id}, username: ${response.username}`)
+        if (response) {
+            const refreshedUsers: UserModel[] = await userService.getAllUsers()
+
+            const findUsers: UserModel[] = refreshedUsers.filter((user) => (
+                user.role === "USER"
+            ))
+
+            setAllUsers(findUsers)
+        }
     }
 
     return (
