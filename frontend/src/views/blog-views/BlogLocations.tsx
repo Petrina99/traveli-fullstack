@@ -1,4 +1,4 @@
-import { Header, Post } from "@/modules"
+import { Header, Post, WeatherCard } from "@/modules"
 import { usePostStore } from "@/store"
 
 import { Link, useParams } from "react-router-dom"
@@ -35,9 +35,7 @@ export const BlogLocations = () => {
                     Create a new post
                 </Link>
             </div>
-            <div className={style.addNewPost}>
-                <p>Posts about: {loc}</p>
-            </div>
+            <WeatherCard location={loc} />
             {filteredPosts.reverse().map((x) => (
                 <Post data={x} key={x.id}/>
             ))}
