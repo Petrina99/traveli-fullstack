@@ -2,8 +2,6 @@ import axios from 'axios'
 
 import { useState, useEffect } from 'react'
 
-import { ForecastCard } from '.'
-
 interface propTypes {
     location: string | undefined
 }
@@ -16,26 +14,13 @@ export const WeatherCard: React.FC<propTypes> = (props) => {
 
     const [weatherInfo, setWeatherInfo] = useState<any>()
     const [locationInfo, setLocationInfo] = useState<any>()
-    const [futureForecast, setFutureForecast] = useState<any>()
 
     useEffect(() => {
         const fetchWeather = async () => {
             const response = await axios.get('http://localhost:8000/api/weather/' + location)
             
-            /*for (let i = 0; i < 7; i++) {
-                console.log(response.data.forecast.forecast.forecastday[i].day)
-            }*/
-
-
-            console.log(response.data.current)
-            console.log(response.data.forecast)
-            console.log(response.data.forecast.forecast)
             setWeatherInfo(response.data.current.current)
             setLocationInfo(response.data.current.location)
-
-            const future = response.data.forecast.forecast.forecastday.slice(1)
-            console.log(future)
-            setFutureForecast(future)
         }
 
         fetchWeather()
@@ -59,18 +44,6 @@ export const WeatherCard: React.FC<propTypes> = (props) => {
                 </div>
             ) : (
                 <p className={style.loading}>Loading ...</p>
-            )}
-            {futureForecast ? (
-                <div className={style.futureForecast}>
-                    <p className={style.futureHeading}>Next 7 days</p>
-                    <div className={style.forecastContainer}>
-                        {futureForecast.map((item:any) => (
-                            <ForecastCard day={item} key={item.date} />
-                        ))}
-                    </div>
-                </div>
-            ) : (
-                <p>Loading ...</p>
             )}
         </div>
     )
